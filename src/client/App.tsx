@@ -52,12 +52,19 @@ function App() {
     }
   }, [])
 
+
   useEffect(() => {
     markersRef.current.forEach(m => m.remove())
     markersRef.current = [];
 
-    wayPoints.forEach((point) => {
-      const marker = new mapboxgl.Marker()
+
+    wayPoints.forEach((point, n) => {
+      const el = document.createElement("h1")
+      el.className = 'marker'
+      el.textContent = "🐭"
+      const marker = new mapboxgl.Marker({
+        element: el
+      })
         .setLngLat([point.lng, point.lat])
         .addTo(mapRef.current!);
       markersRef.current.push(marker);

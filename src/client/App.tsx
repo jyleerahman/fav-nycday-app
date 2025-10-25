@@ -20,6 +20,15 @@ function App() {
   const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
+  const theme = {
+    variables: {
+      fontFamily: 'Spacemono',
+      unit: '14px',
+      padding: '0.7rem',
+      borderRadius: '20px',
+    }
+  };
+
   function getwayPoints(res: any) {
     const f = res.features[0];
     const name = f.properties.name || "untitled";
@@ -29,6 +38,8 @@ function App() {
       ...prev,
       { id: crypto.randomUUID(), name, lng, lat }
     ])
+
+    setInputValue("")
   }
 
   useEffect(() => {
@@ -71,6 +82,7 @@ function App() {
 
   }, [mapLoaded, wayPoints])
 
+
   useEffect(() => {
     const coords = wayPoints.map(wp => [wp.lng, wp.lat])
 
@@ -95,18 +107,23 @@ function App() {
 
   return (
     <>
-      <div>{JSON.stringify(wayPoints, null, 2)}</div>
-      <SearchBox
-        accessToken={accessToken}
-        map={mapRef.current}
-        mapboxgl={mapboxgl}
-        value={inputValue}
-        onChange={(d) => {
-          setInputValue(d);
-        }}
-        onRetrieve={getwayPoints} // [lon,lat] 
-        marker={false}
-      />
+      {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
+      <div className='mt-2 ml-10 mr-10 mb-2 bg-[]'>
+        <SearchBox
+          accessToken={accessToken}
+          map={mapRef.current}
+          mapboxgl={mapboxgl}
+          value={inputValue}
+          theme={theme}
+          onChange={(d) => {
+            setInputValue(d);
+          }}
+
+          onRetrieve={getwayPoints} // [lon,lat] 
+          marker={false}
+        />
+      </div>
+
       <div id='map-container' ref={mapContainerRef} />
 
     </>

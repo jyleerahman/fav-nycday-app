@@ -1,5 +1,6 @@
 import express from "express";
 import ViteExpress from "vite-express";
+import 'dotenv/config'
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.get("/hello", (_, res) => {
 
 app.post("/api/directions", (req, res) => {
   res.send("ok this is connected")
+  const token = process.env.MAPBOX_TOKEN;
 })
 
 ViteExpress.listen(app, 3000, () =>

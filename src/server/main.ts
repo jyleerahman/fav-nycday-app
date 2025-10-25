@@ -7,6 +7,10 @@ app.get("/hello", (_, res) => {
   res.send("Hello Vite + React + TypeScript!");
 });
 
+app.post("/api/directions", (req, res) => {
+  res.send("ok this is connected")
+})
+
 ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000..."),
 );

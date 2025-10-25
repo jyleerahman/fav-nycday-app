@@ -18,7 +18,6 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [wayPoints, setWayPoints] = useState<WayPoints[]>([]);
   const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
-
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
   function getwayPoints(res: any) {
@@ -58,24 +57,44 @@ function App() {
     markersRef.current = [];
 
 
-    wayPoints.forEach((point, n) => {
+    wayPoints.forEach((wp, n) => {
       const el = document.createElement("h1")
       el.className = 'marker'
       el.textContent = "🐭"
       const marker = new mapboxgl.Marker({
         element: el
       })
-        .setLngLat([point.lng, point.lat])
+        .setLngLat([wp.lng, wp.lat])
         .addTo(mapRef.current!);
       markersRef.current.push(marker);
     })
 
   }, [mapLoaded, wayPoints])
 
+  useEffect(() => {
+    const coords = wayPoints.map(wp => [wp.lng, wp.lat])
+
+    async () => {
+      try {
+        const response = await fetch("/api/directions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            profile: "walking",
+            coords
+          })
+        })
+        const data = await response.json();
+        console.log("route: ", data)
+      } catch (err) {
+        console.error(err)
+      }
+
+    }
+  }, [wayPoints])
 
   return (
     <>
-
       <div>{JSON.stringify(wayPoints, null, 2)}</div>
       <SearchBox
         accessToken={accessToken}

@@ -9,12 +9,15 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.1.2",
+    "@mapbox/search-js-react": "^1.5.0",
     "express": "^5.1.0",
     "mapbox-gl": "^3.16.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3",
+    "uuid": "^13.0.0",
     "vite-express": "*"
   },
   "devDependencies": {

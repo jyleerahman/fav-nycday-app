@@ -19,6 +19,12 @@
   background-color: lightgrey;
 }
 
+.marker {
+  background-color: #fff;
+  padding: 0.7rem;
+  border-radius: 100%;
+}
+
 .sidebar {
   background-color: rgb(35 55 75 / 90%);
   color: #fff;

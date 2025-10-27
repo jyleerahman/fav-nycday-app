@@ -15,6 +15,11 @@
   src: url("./font/CutiveMono-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "KGTribecaStamp";
+  src: url("./font/KGTribecaStamp.ttf") format("truetype");
+}
+
 #root {
   font-family: "CutiveMono";
   position: absolute;

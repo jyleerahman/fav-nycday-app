@@ -5,6 +5,8 @@ import 'dotenv/config';
 
 const app = express();
 
+app.use(express.json());
+
 app.get("/hello", (_, res) => {
   res.send("Hello Vite + React + TypeScript!");
 });
@@ -19,6 +21,7 @@ app.post("/api/directions", async (req, res) => {
     //1. get url for the external API
     const EXTERNAL_API_URL = `https://api.mapbox.com/directions/v5/mapbox/${profile}/${coordsString}?steps=true&geometries=geojson&access_token=${token}`;
 
+    console.log('Attempting to fetch URL:', EXTERNAL_API_URL)
     //2. make the GET request to the external API using axios
     const apiResponse = await axios.get(EXTERNAL_API_URL);
 

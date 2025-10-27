@@ -22,14 +22,16 @@
 #map-container {
   height: 100%;
   width: 100%;
-  /* temporarily set the background color so we can tell where the map container is positioned */
-  background-color: lightgrey;
 }
 
 .marker {
   background-color: #fff;
-  padding: 0.7rem;
-  border-radius: 100%;
+  font-size: 1rem;
+  height: 2rem;
+  width: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
 }
 
 .sidebar {

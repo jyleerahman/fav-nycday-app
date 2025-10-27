@@ -95,16 +95,48 @@ function App() {
             coords
           })
         })
-        const data = await response.json();
-        console.log("route: ", data)
+        const json = await response.json();
+        const data = json.routes[0];
+        const route = data.geometry;
+        const geojson = {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': data.geometry
+        };
+
+        if (mapRef.current.getSource('route')) {
+          // if the route already exists on the mapRef.current, reset it using setData
+          mapRef.current.getSource('route').setData(geojson);
+        }
+
+        else {
+          mapRef.current.addLayer({
+            id: 'route',
+            type: 'line',
+            source: {
+              type: 'geojson',
+              data: geojson
+            },
+            layout: {
+              'line-join': 'round',
+              'line-cap': 'round'
+            },
+            paint: {
+              'line-color': '#0039A6',
+              'line-width': 7,
+              'line-opacity': 1
+            }
+          })
+        }
+
+
       } catch (err) {
         console.error(err)
       }
+    }
 
-      if (wayPoints.length >= 2) {
-        getRoute();
-      }
-
+    if (wayPoints.length >= 2) {
+      getRoute();
     }
   }, [wayPoints])
 

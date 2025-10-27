@@ -82,11 +82,10 @@ function App() {
 
   }, [mapLoaded, wayPoints])
 
-
   useEffect(() => {
     const coords = wayPoints.map(wp => [wp.lng, wp.lat])
 
-    async () => {
+    const getRoute = async () => {
       try {
         const response = await fetch("/api/directions", {
           method: "POST",
@@ -100,6 +99,10 @@ function App() {
         console.log("route: ", data)
       } catch (err) {
         console.error(err)
+      }
+
+      if (wayPoints.length >= 2) {
+        getRoute();
       }
 
     }

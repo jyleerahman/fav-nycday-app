@@ -122,7 +122,7 @@ function App() {
               'line-cap': 'round'
             },
             paint: {
-              'line-color': '#0039A6',
+              'line-color': '#ff6319',
               'line-width': 7,
               'line-opacity': 1
             }
@@ -143,23 +143,28 @@ function App() {
   return (
     <>
       {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
-      <div className='mt-2 ml-10 mr-10 mb-2 bg-[]'>
-        <SearchBox
-          accessToken={accessToken}
-          map={mapRef.current}
-          mapboxgl={mapboxgl}
-          value={inputValue}
-          theme={theme}
-          onChange={(d) => {
-            setInputValue(d);
-          }}
+      <div className='h-[100vh] relative'>
+        <div className='mt-2 ml-10 mr-10 mb-2 bg-[]'>
+          <SearchBox
+            accessToken={accessToken}
+            map={mapRef.current}
+            mapboxgl={mapboxgl}
+            value={inputValue}
+            theme={theme}
+            onChange={(d) => {
+              setInputValue(d);
+            }}
 
-          onRetrieve={getwayPoints} // [lon,lat] 
-          marker={false}
-        />
+            onRetrieve={getwayPoints} // [lon,lat] 
+            marker={false}
+          />
+        </div>
+
+        <div id='map-container' ref={mapContainerRef} />
+        {(wayPoints.length >= 2) &&
+          <button className='absolute bottom-20 z-10 bg-black text-white left-[45%] p-3 rounded-4xl'>save your day</button>
+        }
       </div>
-
-      <div id='map-container' ref={mapContainerRef} />
 
     </>
   )

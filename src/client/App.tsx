@@ -20,6 +20,15 @@ function App() {
   const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
+  const theme = {
+    variables: {
+      fontFamily: 'Spacemono',
+      unit: '14px',
+      padding: '0.7rem',
+      borderRadius: '20px',
+    }
+  };
+
   function getwayPoints(res: any) {
     const f = res.features[0];
     const name = f.properties.name || "untitled";
@@ -29,6 +38,8 @@ function App() {
       ...prev,
       { id: crypto.randomUUID(), name, lng, lat }
     ])
+
+    setInputValue("")
   }
 
   useEffect(() => {
@@ -74,7 +85,7 @@ function App() {
   useEffect(() => {
     const coords = wayPoints.map(wp => [wp.lng, wp.lat])
 
-    async () => {
+    const getRoute = async () => {
       try {
         const response = await fetch("/api/directions", {
           method: "POST",
@@ -84,29 +95,70 @@ function App() {
             coords
           })
         })
-        const data = await response.json();
-        console.log("route: ", data)
+        const json = await response.json();
+        const data = json.routes[0];
+        const route = data.geometry;
+        const geojson = {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': data.geometry
+        };
+
+        if (mapRef.current.getSource('route')) {
+          // if the route already exists on the mapRef.current, reset it using setData
+          mapRef.current.getSource('route').setData(geojson);
+        }
+
+        else {
+          mapRef.current.addLayer({
+            id: 'route',
+            type: 'line',
+            source: {
+              type: 'geojson',
+              data: geojson
+            },
+            layout: {
+              'line-join': 'round',
+              'line-cap': 'round'
+            },
+            paint: {
+              'line-color': '#0039A6',
+              'line-width': 7,
+              'line-opacity': 1
+            }
+          })
+        }
+
+
       } catch (err) {
         console.error(err)
       }
+    }
 
+    if (wayPoints.length >= 2) {
+      getRoute();
     }
   }, [wayPoints])
 
   return (
     <>
-      <div>{JSON.stringify(wayPoints, null, 2)}</div>
-      <SearchBox
-        accessToken={accessToken}
-        map={mapRef.current}
-        mapboxgl={mapboxgl}
-        value={inputValue}
-        onChange={(d) => {
-          setInputValue(d);
-        }}
-        onRetrieve={getwayPoints} // [lon,lat] 
-        marker={false}
-      />
+      {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
+      <div className='mt-2 ml-10 mr-10 mb-2 bg-[]'>
+        <SearchBox
+          accessToken={accessToken}
+          map={mapRef.current}
+          mapboxgl={mapboxgl}
+          value={inputValue}
+          theme={theme}
+          onChange={(d) => {
+            setInputValue(d);
+          }}
+
+          onRetrieve={getwayPoints} // [lon,lat] 
+          marker={false}
+        />
+      </div>
+
       <div id='map-container' ref={mapContainerRef} />
 
     </>

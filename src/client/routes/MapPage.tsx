@@ -23,8 +23,8 @@ function MapPage() {
 
     const theme = {
         variables: {
-            fontFamily: 'Spacemono',
-            unit: '14px',
+            fontFamily: 'CutiveMono',
+            unit: '16x',
             padding: '0.7rem',
             borderRadius: '20px',
         }
@@ -148,8 +148,8 @@ function MapPage() {
     return (
         <>
             {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
-            <div className='h-[100vh] relative'>
-                <div className='mt-2 ml-10 mr-10 mb-2 bg-[]'>
+            <div className='h-[100vh] relative '>
+                <div className='mt-2 ml-10 mr-10 mb-2 font-["CutiveMono"]'>
                     <SearchBox
                         accessToken={accessToken}
                         map={mapRef.current}

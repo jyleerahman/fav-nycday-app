@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Post() {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
+    const navigate = useNavigate()
 
     function handleTitleChange(e) {
         setTitle(e.target.value)
@@ -13,10 +15,16 @@ function Post() {
         setContent(e.target.value)
     }
 
+    function handleSavePost() {
+        navigate("/feed")
+    }
+
     return (
         <>
+
             <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"] items-center justify-center bg-[#fcf8f5]'>
-                <div className='border-2 h-[100%] mt-10 m-10 w-[350px] bg-[#d1d3e5]'>
+
+                <div className='border-2 h-[90%] mt-10 m-10 w-[350px] bg-[#d1d3e5]'>
                     <div className='border-b-1 h-[5%] flex'>
                         <div className='font-extrabold font-["KGAllofMe"] text-[1.2rem] flex items-center justify-center w-full'>SPECIAL DAY</div>
                     </div>
@@ -29,7 +37,7 @@ function Post() {
                                 Issued by Your Favorite New York City Day
                             </div>
                             <div className='px-2 border-b-1 h-[50%] flex items-center text-4xl font-extrabold font-["KGAllofMe"]'>
-                                OCT. 12 2025
+                                OCT 28. 2025
                             </div>
                             <input
                                 value={title}
@@ -49,15 +57,13 @@ function Post() {
                         <div className='border-b-1 h-[50%] flex items-center justify-center'>
                             Issued on trips toward something station
                         </div>
-                        <div className='border-b-1 h-[25%] font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
-                            A.M.
-                        </div>
-                        <div className='h-[25%] font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
-                            P.M.
-                        </div>
+                        <button
+                            onClick={handleSavePost}
+                            className='h-[50%] w-full font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
+                            SAVE POST
+                        </button>
                     </div>
                 </div>
-
 
             </div>
         </>

@@ -2,7 +2,17 @@ import { useState, useRef, useEffect } from 'react';
 
 
 function Post() {
-    let randomNumber = Math.floor(Math.random() * 10000) + 1;
+    const [title, setTitle] = useState("")
+    const [content, setContent] = useState("")
+
+    function handleTitleChange(e) {
+        setTitle(e.target.value)
+    }
+
+    function handleContentChange(e) {
+        setContent(e.target.value)
+    }
+
     return (
         <>
             <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"] items-center justify-center bg-[#fcf8f5]'>
@@ -12,23 +22,29 @@ function Post() {
                     </div>
                     <div className='flex border-b-1 h-[25%]'>
                         <div className='border-r-1 flex items-center justify-center p-2 [writing-mode:vertical-rl] tracking-widest'>
-                            {randomNumber}
+                            93493
                         </div>
                         <div className='flex flex-col w-full'>
                             <div className='px-2 border-b-1 h-[25%] flex items-center'>
-                                Issued by New York City Transit
+                                Issued by Your Favorite New York City Day
                             </div>
                             <div className='px-2 border-b-1 h-[50%] flex items-center text-4xl font-extrabold font-["KGAllofMe"]'>
                                 OCT. 12 2025
                             </div>
-                            <div className='px-2 h-[25%] font-["KGAllofMe"] flex items-center'>
-                                B-74 MERMAID AV. // title
-                            </div>
+                            <input
+                                value={title}
+                                onChange={handleTitleChange}
+                                placeholder='Sunny Williamsburg day'
+                                className='px-2 h-[25%] font-["KGAllofMe"] flex items-center'>
+                            </input>
                         </div>
                     </div>
-                    <div className='font-["CutiveMono"] border-b-1 h-[50%] p-4'>
-                        It was rainy and feeling brooklynish today. // content
-                    </div>
+                    <textarea
+                        value={content}
+                        onChange={handleContentChange}
+                        placeholder='Had perfect williamsburg day.'
+                        className='font-["CutiveMono"] border-b-1 h-[50%] p-4 w-full'>
+                    </textarea>
                     <div className='h-[20%]'>
                         <div className='border-b-1 h-[50%] flex items-center justify-center'>
                             Issued on trips toward something station

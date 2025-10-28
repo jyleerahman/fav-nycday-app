@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SearchBox } from "@mapbox/search-js-react"
 import { useNavigate } from 'react-router-dom';
+import { useRouteStore } from "../store";
 
 type WayPoints = {
     id: string,
@@ -20,6 +21,7 @@ function MapPage() {
     const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const navigate = useNavigate();
+    const setRoute = useRouteStore((state) => state.setRoute);
 
     const theme = {
         variables: {
@@ -43,7 +45,7 @@ function MapPage() {
         setInputValue("")
     }
 
-    function handleSaveRoute() {
+    function handleSaveRoute(routeGeoJson) {
         navigate("/create-post")
     }
 
@@ -108,6 +110,14 @@ function MapPage() {
                     'properties': {},
                     'geometry': data.geometry
                 };
+
+                const handleSaveRoute = (routeGeoJson) => {
+                    console.log("saving route to global store:", routeGeoJson)
+                    setRoute(routeGeoJson)
+                    navigate("/create-post")
+                }
+
+                handleSaveRoute(geojson);
 
                 if (mapRef.current.getSource('route')) {
                     // if the route already exists on the mapRef.current, reset it using setData

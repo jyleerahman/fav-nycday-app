@@ -1,17 +1,27 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Spacemono";
-  src: url("./font/SpaceMono-Regular.ttf") format("truetype");
-}
-
-@font-face {
   font-family: "Roboto";
   src: url("./font/Roboto.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "ArchivoNarrow";
+  src: url("./font/ArchivoNarrow.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "CutiveMono";
+  src: url("./font/CutiveMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "KGTribecaStamp";
+  src: url("./font/KGTribecaStamp.ttf") format("truetype");
+}
+
 #root {
-  font-family: "Spacemono";
+  font-family: "CutiveMono";
   position: absolute;
   top: 0;
   right: 0;

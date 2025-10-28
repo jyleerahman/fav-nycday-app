@@ -2,31 +2,32 @@ import { useState, useRef, useEffect } from 'react';
 
 
 function Post() {
+    let randomNumber = Math.floor(Math.random() * 10000) + 1;
     return (
         <>
-            <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"]'>
-                <div className='border-2 h-[80%] mt-10 m-10 w-[350px] bg-[#d1d3e5]'>
+            <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"] items-center justify-center bg-[#fcf8f5]'>
+                <div className='border-2 h-[100%] mt-10 m-10 w-[350px] bg-[#d1d3e5]'>
                     <div className='border-b-1 h-[5%] flex'>
                         <div className='font-extrabold font-["KGAllofMe"] text-[1.2rem] flex items-center justify-center w-full'>SPECIAL DAY</div>
                     </div>
                     <div className='flex border-b-1 h-[25%]'>
                         <div className='border-r-1 flex items-center justify-center p-2 [writing-mode:vertical-rl] tracking-widest'>
-                            107997
+                            {randomNumber}
                         </div>
                         <div className='flex flex-col w-full'>
                             <div className='px-2 border-b-1 h-[25%] flex items-center'>
                                 Issued by New York City Transit
                             </div>
-                            <div className='px-2 border-b-1 h-[50%] flex items-center text-3xl font-extrabold font-["KGAllofMe"]'>
+                            <div className='px-2 border-b-1 h-[50%] flex items-center text-4xl font-extrabold font-["KGAllofMe"]'>
                                 OCT. 12 2025
                             </div>
                             <div className='px-2 h-[25%] font-["KGAllofMe"] flex items-center'>
-                                B-74 MERMAID AV.
+                                B-74 MERMAID AV. // title
                             </div>
                         </div>
                     </div>
-                    <div className='font-["CutiveMono"] border-b-1 h-[50%] p-2'>
-                        It was rainy and feeling brooklynish today.
+                    <div className='font-["CutiveMono"] border-b-1 h-[50%] p-4'>
+                        It was rainy and feeling brooklynish today. // content
                     </div>
                     <div className='h-[20%]'>
                         <div className='border-b-1 h-[50%] flex items-center justify-center'>

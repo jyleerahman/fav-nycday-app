@@ -10,7 +10,7 @@ function Post() {
                         <div className='font-extrabold font-["KGAllofMe"] text-[1.2rem] flex items-center justify-center w-full'>SPECIAL DAY</div>
                     </div>
                     <div className='flex border-b-1 h-[25%]'>
-                        <div className='border-r-1 flex items-center justify-center p-2'>
+                        <div className='border-r-1 flex items-center justify-center p-2 [writing-mode:vertical-rl] tracking-widest'>
                             107997
                         </div>
                         <div className='flex flex-col w-full'>

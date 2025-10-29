@@ -1,6 +1,32 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 function Feed() {
+    const [post, setPost] = useState({})
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+
+            try {
+                const { data, error } = await supabase
+                    .from("post")
+                    .select("title, content")
+                    .order("created_at", { ascending: false })
+                    .limit(1)
+                    .single()
+
+                setPost(data)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        fetchPosts();
+    }, [])
+
+
 
     return (
         <>
@@ -18,10 +44,15 @@ function Feed() {
             <div className="light-green-tile-bg h-[3%]"></div>
             <div className="tile-bg h-[76%] flex items-center justify-center">
                 <div className="w-[50%] h-[80%] bg-white border-8 flex flex-col font-['ArchivoNarrow'] items-center">
-                    <div className="">title</div>
-                    <div className="">map?</div>
-                    <div className="">content</div>
-
+                    {post ? (
+                        <div className="flex flex-col gap-5 m-5">
+                            <div className="text-5xl">{post.title}</div>
+                            <div>MAP!</div>
+                            <p className="text-2xl">{post.content}</p>
+                        </div>
+                    ) : (
+                        <p>No post found.</p>
+                    )}
                 </div>
             </div>
         </>

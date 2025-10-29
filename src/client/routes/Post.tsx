@@ -2,13 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
 
-function Post() {
+function Post(props) {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const navigate = useNavigate()
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { mapdata } = props
 
     function handleTitleChange(e) {
         setTitle(e.target.value)
@@ -22,7 +23,8 @@ function Post() {
         // send data to supabase
         const newPost = {
             title: title,
-            content: content
+            content: content,
+            // map_data: mapdata
         }
 
         try {

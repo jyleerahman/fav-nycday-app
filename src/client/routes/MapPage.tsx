@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SearchBox } from "@mapbox/search-js-react"
 import { useNavigate } from 'react-router-dom';
-import { useRouteStore } from "../store";
+import { useRouteStore } from "../store.js";
 
 type WayPoints = {
     id: string,

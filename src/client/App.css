@@ -82,20 +82,20 @@
 .light-green-tile-bg {
   background-color: #707c58;
   opacity: 0.8;
-  background-image: linear-gradient(#889471 1.8px, transparent 1.8px), linear-gradient(to right, #889471 1.8px, #707c58 1.8px);
+  background-image: linear-gradient(#889471 1.6px, transparent 1.6px), linear-gradient(to right, #889471 1.6px, #707c58 1.6px);
   background-size: 36px 36px;
 }
 
 .dark-green-tile-bg {
   background-color: #18240e;
   opacity: 0.8;
-  background-image: linear-gradient(#9f9f83 1.8px, transparent 1.8px), linear-gradient(to right, #9f9f83 1.8px, #18240e 1.8px);
+  background-image: linear-gradient(#9f9f83 1.6px, transparent 1.6px), linear-gradient(to right, #9f9f83 1.6px, #18240e 1.6px);
   background-size: 36px 36px;
 }
 
 .tile-bg {
-  background-color: #dfd3d1;
+  background-color: #e7e2dc;
   opacity: 0.8;
-  background-image: linear-gradient(#a39289 1.8px, transparent 1.8px), linear-gradient(to right, #a39289 1.8px, #dfd3d1 1.8px);
+  background-image: linear-gradient(#737373 1.6px, transparent 1.6px), linear-gradient(to right, #737373 1.6px, #e7e2dc 1.6px);
   background-size: 36px 36px;
 }

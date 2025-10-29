@@ -41,7 +41,7 @@ function Post() {
     return (
         <>
 
-            <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"] items-center justify-center bg-[#fcf8f5]'>
+            <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"] items-center justify-center tile-bg'>
                 <div className='shadow-natural mt-10 m-10 w-[350px] h-[95%]'>
                     <div className='perforated-x h-full pl-3 pr-3 pt-10 pb-10 bg-[#d1d3e5]'>
                         <div className='border-2 h-full'>
@@ -62,7 +62,7 @@ function Post() {
                                     <input
                                         value={title}
                                         onChange={handleTitleChange}
-                                        placeholder='Sunny Williamsburg day'
+                                        placeholder='Sunny Williamsburg day...'
                                         className='px-2 h-[25%] font-["KGAllofMe"] flex items-center'>
                                     </input>
                                 </div>
@@ -70,7 +70,7 @@ function Post() {
                             <textarea
                                 value={content}
                                 onChange={handleContentChange}
-                                placeholder='Had perfect williamsburg day.'
+                                placeholder='Cheap eats day on williamsburg...'
                                 className='font-["CutiveMono"] border-b-1 h-[50%] p-4 w-full'>
                             </textarea>
                             <div className='h-[20%]'>

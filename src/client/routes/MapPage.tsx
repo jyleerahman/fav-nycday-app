@@ -45,7 +45,7 @@ function MapPage() {
         setInputValue("")
     }
 
-    function handleSaveRoute(routeGeoJson) {
+    function handleSaveRoute() {
         navigate("/create-post")
     }
 
@@ -98,7 +98,7 @@ function MapPage() {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        profile: "walking",
+                        profile: "cycling",
                         coords
                     })
                 })
@@ -108,16 +108,8 @@ function MapPage() {
                 const geojson = {
                     'type': 'Feature',
                     'properties': {},
-                    'geometry': data.geometry
+                    'geometry': route
                 };
-
-                const handleSaveRoute = (routeGeoJson) => {
-                    console.log("saving route to global store:", routeGeoJson)
-                    setRoute(routeGeoJson)
-                    navigate("/create-post")
-                }
-
-                handleSaveRoute(geojson);
 
                 if (mapRef.current.getSource('route')) {
                     // if the route already exists on the mapRef.current, reset it using setData

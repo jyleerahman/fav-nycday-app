@@ -17,7 +17,7 @@ function Feed() {
             <div className="dark-green-tile-bg h-[8%] "></div>
             <div className="light-green-tile-bg h-[3%]"></div>
             <div className="tile-bg h-[76%] flex items-center justify-center">
-                <div className="w-[50%] h-[80%] bg-white border-5 flex flex-col font-['ArchivoNarrow'] items-center">
+                <div className="w-[50%] h-[80%] bg-white border-8 flex flex-col font-['ArchivoNarrow'] items-center">
                     <div className="">title</div>
                     <div className="">map?</div>
                     <div className="">content</div>

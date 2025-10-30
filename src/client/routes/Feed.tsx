@@ -43,12 +43,12 @@ function Feed() {
             <div className="dark-green-tile-bg h-[8%] "></div>
             <div className="light-green-tile-bg h-[3%]"></div>
             <div className="tile-bg h-[76%] flex items-center justify-center">
-                <div className="w-[50%] h-[80%] bg-white border-8 flex flex-col font-['ArchivoNarrow'] items-center">
+                <div className="w-[50%] h-[80%] bg-white border-8 flex flex-col items-center">
                     {post ? (
                         <div className="flex flex-col gap-5 m-5">
-                            <div className="text-5xl">{post.title}</div>
-                            <div>MAP!</div>
-                            <p className="text-2xl">{post.content}</p>
+                            <div className="text-6xl font-['Chomsky']">{post.title}</div>
+                            <div> //MAP HERE// </div>
+                            <p className="text-2xl font-['NotoSerif']">{post.content}</p>
                         </div>
                     ) : (
                         <p>No post found.</p>

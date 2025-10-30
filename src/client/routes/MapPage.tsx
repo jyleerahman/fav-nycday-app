@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SearchBox } from "@mapbox/search-js-react"
 import { useNavigate } from 'react-router-dom';
+import { useRouteStore } from "../store";
 
 type WayPoints = {
     id: string,
@@ -20,11 +21,12 @@ function MapPage() {
     const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const navigate = useNavigate();
+    const setRoute = useRouteStore((state) => state.setRoute);
 
     const theme = {
         variables: {
-            fontFamily: 'Spacemono',
-            unit: '14px',
+            fontFamily: 'CutiveMono',
+            unit: '16x',
             padding: '0.7rem',
             borderRadius: '20px',
         }
@@ -96,7 +98,7 @@ function MapPage() {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        profile: "walking",
+                        profile: "cycling",
                         coords
                     })
                 })
@@ -106,7 +108,7 @@ function MapPage() {
                 const geojson = {
                     'type': 'Feature',
                     'properties': {},
-                    'geometry': data.geometry
+                    'geometry': route
                 };
 
                 if (mapRef.current.getSource('route')) {
@@ -148,8 +150,8 @@ function MapPage() {
     return (
         <>
             {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
-            <div className='h-[100vh] relative'>
-                <div className='mt-2 ml-10 mr-10 mb-2 bg-[]'>
+            <div className='h-[100vh] relative '>
+                <div className='mt-2 ml-10 mr-10 mb-2 font-["CutiveMono"]'>
                     <SearchBox
                         accessToken={accessToken}
                         map={mapRef.current}

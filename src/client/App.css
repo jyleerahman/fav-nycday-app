@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @font-face {
   font-family: "Roboto";
   src: url("./font/Roboto.ttf") format("truetype");
@@ -19,6 +20,7 @@
   font-family: "KGAllofMe";
   src: url("./font/KGAllofMe.ttf") format("truetype");
 }
+
 
 #root {
   font-family: "CutiveMono";
@@ -65,4 +67,35 @@
   padding: 4px 10px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.perforated-x {
+  -webkit-mask: radial-gradient(circle 8px at 8px -3px, transparent 9px, #000 9px) 0 0/16px 100% repeat-x;
+  mask: radial-gradient(circle 8px at 8px -3px, transparent 9px, #000 9px) 0 0/16px 100% repeat-x;
+}
+
+.shadow-natural {
+  filter:
+    drop-shadow(0 10px 20px rgba(0, 0, 0, 0.22)) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+}
+
+.light-green-tile-bg {
+  background-color: #707c58;
+  opacity: 0.8;
+  background-image: linear-gradient(#889471 1.6px, transparent 1.6px), linear-gradient(to right, #889471 1.6px, #707c58 1.6px);
+  background-size: 36px 36px;
+}
+
+.dark-green-tile-bg {
+  background-color: #18240e;
+  opacity: 0.8;
+  background-image: linear-gradient(#9f9f83 1.6px, transparent 1.6px), linear-gradient(to right, #9f9f83 1.6px, #18240e 1.6px);
+  background-size: 36px 36px;
+}
+
+.tile-bg {
+  background-color: #e7e2dc;
+  opacity: 0.8;
+  background-image: linear-gradient(#737373 1.6px, transparent 1.6px), linear-gradient(to right, #737373 1.6px, #e7e2dc 1.6px);
+  background-size: 36px 36px;
 }

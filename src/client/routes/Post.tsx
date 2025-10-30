@@ -26,6 +26,7 @@ function Post(props) {
         const newPost = {
             title: title,
             content: content,
+            // this is global state! omg
             route_geometry: currentRoute
         }
 

@@ -7,13 +7,26 @@ function Feed() {
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+    function buildMapImgUrl(geometry) {
+        const MAPBOX_STYLE = "mapbox/streets-v12";
+        const WIDTH = 500;
+        const HEIGHT = 200;
+        const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg";
+        const PATH_STYLE = 'path-7+ff6319-1'
+        const encodedGeometry = encodeURIComponent(geometry);
+        const overlay = `${PATH_STYLE}(${encodedGeometry})`
+        const viewport = 'auto';
+
+        return `https://api.mapbox.com/styles/v1/${MAPBOX_STYLE}/static/${overlay}/${viewport}/${WIDTH}x${HEIGHT}?access_token=${MAPBOX_ACCESS_TOKEN}`;
+    }
+
     useEffect(() => {
         const fetchPosts = async () => {
 
             try {
                 const { data, error } = await supabase
                     .from("post")
-                    .select("title, content")
+                    .select("title, content, route_geometry")
                     .order("created_at", { ascending: false })
                     .limit(1)
                     .single()
@@ -25,7 +38,6 @@ function Feed() {
         }
         fetchPosts();
     }, [])
-
 
 
     return (
@@ -46,8 +58,12 @@ function Feed() {
                 <div className="w-[50%] h-[80%] bg-white border-8 flex flex-col font-['ArchivoNarrow'] items-center">
                     {post ? (
                         <div className="flex flex-col gap-5 m-5">
-                            <div className="text-5xl">{post.title}</div>
-                            <div>MAP!</div>
+                            <div className="text-5xl font-['KGAllofMe']">{post.title}</div>
+                            {post.route_geometry && (
+                                <img
+                                    src={buildMapImgUrl(post.route_geometry)}
+                                    style={{ width: "100%", maxWidth: "600px", height: "auto" }}></img>
+                            )}
                             <p className="text-2xl">{post.content}</p>
                         </div>
                     ) : (

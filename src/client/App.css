@@ -21,6 +21,11 @@
   src: url("./font/KGAllofMe.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Chomsky";
+  src: url("./font/Chomsky.otf");
+}
+
 
 #root {
   font-family: "CutiveMono";

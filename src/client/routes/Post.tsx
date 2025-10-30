@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from "@supabase/supabase-js";
+import { useAppStore } from '../store';
 
 function Post(props) {
     const [title, setTitle] = useState("")
@@ -9,7 +10,8 @@ function Post(props) {
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
-    const { mapdata } = props
+    //get the state 
+    const currentRoute = useAppStore((state) => state.currentRoute);
 
     function handleTitleChange(e) {
         setTitle(e.target.value)
@@ -24,7 +26,8 @@ function Post(props) {
         const newPost = {
             title: title,
             content: content,
-            // map_data: mapdata
+            // this is global state! omg
+            route_geometry: currentRoute
         }
 
         try {

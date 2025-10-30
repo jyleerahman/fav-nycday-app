@@ -4,6 +4,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { SearchBox } from "@mapbox/search-js-react"
 import { useNavigate } from 'react-router-dom';
 import { useRouteStore } from "../store.js";
+import polyline from "@mapbox/polyline";
+import { useAppStore } from '../store.js';
 
 type WayPoints = {
     id: string,
@@ -21,7 +23,8 @@ function MapPage() {
     const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const navigate = useNavigate();
-    const setRoute = useRouteStore((state) => state.setRoute);
+    // get the setter
+    const setCurrentRoute = useAppStore((state) => state.setCurrentRoute);
 
     const theme = {
         variables: {
@@ -105,6 +108,9 @@ function MapPage() {
                 const json = await response.json();
                 const data = json.routes[0];
                 const route = data.geometry;
+                const encodedPolyline = polyline.fromGeoJSON(route);
+                //set it in the store
+                setCurrentRoute(encodedPolyline);
                 const geojson = {
                     'type': 'Feature',
                     'properties': {},

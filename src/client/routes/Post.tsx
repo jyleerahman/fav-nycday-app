@@ -17,6 +17,7 @@ function Post(props) {
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
     //get the state 
     const currentRoute = useAppStore((state) => state.currentRoute);
+    const currentWaypoints = useAppStore((state) => state.currentWaypoints);
 
     // Get current date formatted like "OCT 31. 2025"
     const getCurrentDate = () => {
@@ -54,6 +55,7 @@ function Post(props) {
             content: content,
             // this is global state! omg
             route_geometry: currentRoute,
+            waypoints: currentWaypoints,
             weather_tags: selectedWeatherTags,
             mood_tags: selectedMoodTags
         }

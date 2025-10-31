@@ -2,17 +2,46 @@ import { useState, useRef, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 
+type Waypoint = {
+    id: string;
+    name: string;
+    lng: number;
+    lat: number;
+}
+
+type Post = {
+    id: string;
+    title: string;
+    content: string;
+    route_geometry: string;
+    waypoints: Waypoint[];
+    weather_tags: string[];
+    mood_tags: string[];
+    created_at: string;
+}
+
 function Feed() {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState<Post[]>([])
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
     const navigate = useNavigate();
     
     const currentPost = posts[currentIndex];
+    
+    // Get the last stop from current post
+    const getLastStop = () => {
+        if (!currentPost?.waypoints || currentPost.waypoints.length === 0) {
+            return "No Route";
+        }
+        const lastStop = currentPost.waypoints[currentPost.waypoints.length - 1].name;
+        return lastStop;
+    };
 
-    function buildMapImgUrl(geometry) {
+    function buildMapImgUrl(geometry: string) {
         const MAPBOX_STYLE = "mapbox/streets-v12";
         const WIDTH = 600;
         const HEIGHT = 400;
@@ -39,16 +68,25 @@ function Feed() {
 
     useEffect(() => {
         const fetchPosts = async () => {
+            setLoading(true)
+            setError(null)
 
             try {
-                const { data, error } = await supabase
+                const { data, error: fetchError } = await supabase
                     .from("post")
                     .select("id, title, content, route_geometry, waypoints, weather_tags, mood_tags, created_at")
                     .order("created_at", { ascending: false })
 
+                if (fetchError) {
+                    throw fetchError;
+                }
+
                 setPosts(data || [])
             } catch (err) {
                 console.error(err)
+                setError("Unable to load posts. Please check your connection.")
+            } finally {
+                setLoading(false)
             }
         }
         fetchPosts();
@@ -58,11 +96,12 @@ function Feed() {
     return (
         <>
             <div className="tile-bg h-[8%]">
-                <div className="ml-5 w-[20rem] h-[4rem] bg-black text-white flex font-['ArchivoNarrow'] items-center">
+                <div className="ml-5 w-full max-w-[40rem] h-[4rem] bg-black text-white flex font-['ArchivoNarrow'] items-center">
                     <button onClick={handleExit} className="font-extrabold text-5xl pl-2 pr-2">←</button>
                     <button onClick={handleExit} className="bg-red-700 h-full flex items-center justify-center text-5xl p-2">Exit</button>
-                    <div className="text-xl flex pl-2">Canal St & Broadway</div>
-
+                    {!loading && currentPost && (
+                        <div className="text-xl flex pl-2 truncate">{getLastStop()}</div>
+                    )}
                 </div>
             </div>
 
@@ -70,7 +109,98 @@ function Feed() {
             <div className="dark-green-tile-bg h-[6%] "></div>
             <div className="light-green-tile-bg h-[2%]"></div>
             <div className="tile-bg h-[82%] flex items-center justify-center overflow-hidden relative pt-8">
-                {currentPost ? (
+                {loading ? (
+                    /* LOADING STATE */
+                    <div className="flex flex-col items-center justify-center gap-6">
+                        <div className="text-6xl animate-bounce">🚇</div>
+                        <div className="mta-flyer flex flex-col items-center bg-[#faf8f3] w-[90vw] max-w-[450px] border-4 border-black p-8">
+                            <div className="bg-[#0039A6] text-white px-4 py-2.5 border-2 border-black mb-4 w-full text-center">
+                                <div className="text-sm font-sans font-bold tracking-widest">
+                                    NYC TRANSIT AUTHORITY
+                                </div>
+                            </div>
+                            <div className="text-xl font-sans font-bold text-center mb-4">
+                                TRAIN APPROACHING...
+                            </div>
+                            <div className="flex gap-2 mb-4">
+                                <div className="w-3 h-3 bg-[#ff6319] rounded-full animate-pulse"></div>
+                                <div className="w-3 h-3 bg-[#ff6319] rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                                <div className="w-3 h-3 bg-[#ff6319] rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                            </div>
+                            <div className="text-sm font-sans text-gray-600 text-center">
+                                Loading your memories...
+                            </div>
+                        </div>
+                    </div>
+                ) : error ? (
+                    /* ERROR STATE */
+                    <div className="flex flex-col items-center justify-center gap-6">
+                        <div className="text-6xl">⚠️</div>
+                        <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[90vw] max-w-[450px] border-4 border-black overflow-hidden">
+                            <div className="bg-[#c92a2a] text-white px-4 py-2.5 border-b-4 border-black">
+                                <div className="text-sm font-sans font-bold tracking-widest">
+                                    NYC TRANSIT AUTHORITY
+                                </div>
+                                <div className="text-xs font-sans tracking-wider">
+                                    SERVICE DISRUPTION
+                                </div>
+                            </div>
+                            <div className="px-6 py-8">
+                                <div className="text-2xl font-sans font-black uppercase leading-tight mb-4 text-center">
+                                    SERVICE TEMPORARILY UNAVAILABLE
+                                </div>
+                                <p className="text-base font-sans leading-relaxed text-center mb-6">
+                                    {error}
+                                </p>
+                                <button 
+                                    onClick={() => window.location.reload()}
+                                    className="w-full bg-[#0039A6] text-white py-3 px-6 font-sans font-bold tracking-wider border-2 border-black hover:bg-[#0047c4] transition-colors"
+                                >
+                                    TRY AGAIN
+                                </button>
+                            </div>
+                            <div className="px-4 py-2 bg-[#e8e6df] border-t-2 border-gray-400">
+                                <div className="text-[0.65rem] font-sans text-gray-600 text-center tracking-wider">
+                                    For assistance visit mta.info or call 511
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : posts.length === 0 ? (
+                    /* EMPTY STATE */
+                    <div className="flex flex-col items-center justify-center gap-6">
+                        <div className="text-6xl">🗺️</div>
+                        <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[90vw] max-w-[450px] border-4 border-black overflow-hidden">
+                            <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
+                                <div className="text-sm font-sans font-bold tracking-widest">
+                                    NYC TRANSIT AUTHORITY
+                                </div>
+                                <div className="text-xs font-sans tracking-wider">
+                                    SERVICE NOTICE
+                                </div>
+                            </div>
+                            <div className="px-6 py-8">
+                                <div className="text-2xl font-sans font-black uppercase leading-tight mb-4 text-center">
+                                    NO ROUTES SAVED
+                                </div>
+                                <p className="text-base font-sans leading-relaxed text-center mb-6">
+                                    Start creating memories by mapping out your perfect NYC day.
+                                </p>
+                                <button 
+                                    onClick={() => navigate('/')}
+                                    className="w-full bg-[#ff6319] text-white py-3 px-6 font-sans font-bold tracking-wider border-2 border-black hover:bg-[#ff7a3d] transition-colors"
+                                >
+                                    CREATE YOUR FIRST ROUTE
+                                </button>
+                            </div>
+                            <div className="px-4 py-2 bg-[#e8e6df] border-t-2 border-gray-400">
+                                <div className="text-[0.65rem] font-sans text-gray-600 text-center tracking-wider">
+                                    Your journey starts here 🚇
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : currentPost ? (
                     <>
                         {/* PREVIOUS ARROW */}
                         {posts.length > 1 && (
@@ -225,9 +355,7 @@ function Feed() {
                             </button>
                         )}
                     </>
-                ) : (
-                    <p className="text-center text-gray-600 font-sans text-lg">No posts found.</p>
-                )}
+                ) : null}
             </div>
 
         </>

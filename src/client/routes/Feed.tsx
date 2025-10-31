@@ -31,6 +31,8 @@ function Feed() {
     const [selectedWeatherFilter, setSelectedWeatherFilter] = useState<string | null>(null)
     const [selectedMoodFilter, setSelectedMoodFilter] = useState<string | null>(null)
     const [showFilters, setShowFilters] = useState(false)
+    const [isTransitioning, setIsTransitioning] = useState(false)
+    const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null)
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -65,11 +67,25 @@ function Feed() {
     }
     
     function handlePrevious() {
-        setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredPosts.length - 1))
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setSlideDirection('right');
+        setTimeout(() => {
+            setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredPosts.length - 1));
+            setIsTransitioning(false);
+            setSlideDirection(null);
+        }, 1000);
     }
     
     function handleNext() {
-        setCurrentIndex((prev) => (prev < filteredPosts.length - 1 ? prev + 1 : 0))
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setSlideDirection('left');
+        setTimeout(() => {
+            setCurrentIndex((prev) => (prev < filteredPosts.length - 1 ? prev + 1 : 0));
+            setIsTransitioning(false);
+            setSlideDirection(null);
+        }, 1000);
     }
     
     function clearFilters() {
@@ -374,7 +390,11 @@ function Feed() {
                                 </div>
                             )}
                             
-                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[90vw] max-w-[450px] h-[85vh] max-h-[700px] border-4 border-black overflow-y-auto">
+                            <div className={`mta-flyer flex flex-col bg-[#faf8f3] w-[90vw] max-w-[450px] h-[85vh] max-h-[700px] border-4 border-black overflow-y-auto transition-all duration-1000 ${
+                                slideDirection === 'left' ? 'animate-slide-out-left' : 
+                                slideDirection === 'right' ? 'animate-slide-out-right' : 
+                                'animate-slide-in'
+                            }`}>
                                 {/* MTA HEADER */}
                                 <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
                                     <div className="text-sm font-sans font-bold tracking-widest mb-0.5">

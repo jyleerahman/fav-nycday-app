@@ -763,11 +763,11 @@
 }
 
 .metrocard-button:hover {
-  animation: swipe-card 1s ease-in-out;
+  animation: swipe-card 4.5s ease-in-out;
   box-shadow: 
     0 8px 20px rgba(0, 0, 0, 0.45),
     inset 0 2px 3px rgba(255, 255, 255, 0.5),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.1);
+    inset 0 -4px 3px rgba(0, 0, 0, 0.1);
 }
 
 .metrocard-button:active {
@@ -781,28 +781,74 @@
     transform: translateX(0) rotate(0deg);
     opacity: 1;
   }
-  10% {
-    transform: translateX(-5px) rotate(-1deg);
+  5% {
+    transform: translateX(-3px) rotate(-0.5deg);
     opacity: 1;
   }
-  40% {
-    transform: translateX(180px) rotate(3deg);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateX(180px) rotate(3deg);
-    opacity: 0.6;
-  }
-  55% {
+  25% {
     transform: translateX(180px) rotate(2deg);
     opacity: 0.7;
   }
-  85% {
-    transform: translateX(-8px) rotate(-2deg);
+  30% {
+    transform: translateX(180px) rotate(2deg);
+    opacity: 0.7;
+  }
+  35% {
+    transform: translateX(180px) rotate(1.5deg);
+    opacity: 0.75;
+  }
+  90% {
+    transform: translateX(-5px) rotate(-1deg);
     opacity: 1;
   }
   100% {
     transform: translateX(0) rotate(0deg);
     opacity: 1;
   }
+}
+
+/* Feed Card Slide Animations */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.98);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(30px) scale(0.98);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 1s ease-out;
+}
+
+.animate-slide-out-left {
+  animation: slide-out-left 1s ease-out;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 1s ease-out;
 }

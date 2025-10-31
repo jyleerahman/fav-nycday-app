@@ -160,3 +160,50 @@
     opacity: 1;
   }
 }
+
+/* Stamp Button Effect */
+.stamp-button {
+  position: relative;
+  overflow: visible;
+}
+
+.stamp-button::after {
+  content: 'APPROVED';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg) scale(0);
+  color: #c92a2a;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  border: 4px solid #c92a2a;
+  border-radius: 0;
+  padding: 0.3rem 1rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  text-shadow: 2px 2px 0px rgba(201, 42, 42, 0.2);
+  mix-blend-mode: multiply;
+}
+
+.stamp-button:hover::after {
+  transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+  opacity: 0.85;
+  animation: stamp-press 0.3s ease;
+}
+
+@keyframes stamp-press {
+  0% {
+    transform: translate(-50%, -50%) rotate(-15deg) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+    opacity: 0.85;
+  }
+}

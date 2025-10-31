@@ -162,7 +162,7 @@ function Post(props) {
                                 </div>
                                 <button
                                     onClick={handleSavePost}
-                                    className='h-[50%] w-full font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
+                                    className='stamp-button h-[50%] w-full font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
                                     SAVE POST
                                 </button>
                             </div>

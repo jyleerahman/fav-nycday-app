@@ -62,20 +62,30 @@ function Post(props) {
             mood_tags: selectedMoodTags
         }
 
+        console.log("Attempting to save post:", newPost)
+
         try {
             const { data, error } = await supabase
                 .from("post")
                 .insert([newPost])
+            
+            if (error) {
+                console.error("Supabase insert error:", error)
+                alert(`Error saving post: ${error.message}`)
+                return
+            }
+            
+            console.log("Post saved successfully:", data)
             setTitle("")
             setContent("")
             setCreatedBy("")
             setSelectedWeatherTags([])
             setSelectedMoodTags([])
+            navigate("/feed")
         } catch (err) {
-            console.error(err)
+            console.error("Catch error:", err)
+            alert(`Error: ${err.message}`)
         }
-
-        navigate("/feed")
     }
 
     const TagTicket = ({ tag, isSelected, onToggle }: { tag: string, isSelected: boolean, onToggle: () => void }) => {

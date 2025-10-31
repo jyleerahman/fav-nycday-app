@@ -39,6 +39,10 @@
 #map-container {
   height: 100%;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .marker {
@@ -466,4 +470,131 @@
 .turnstile-arrow:active {
   transform: scale(0.98);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* MetroCard Button */
+.metrocard-button {
+  background: linear-gradient(180deg, #FFD034 0%, #FFBD0A 50%, #FFD034 100%);
+  width: 260px;
+  height: 75px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.4),
+    inset 0 2px 3px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: visible;
+  padding: 0;
+}
+
+/* MTA Logo Circle */
+.metrocard-button::before {
+  content: 'MTA';
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  background: #D14124;
+  border-radius: 50%;
+  color: #FFD034;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  letter-spacing: -0.5px;
+  z-index: 3;
+}
+
+/* MetroCard Text */
+.metrocard-button::after {
+  content: 'Save Route';
+  position: absolute;
+  top: 12px;
+  left: 52px;
+  color: #0039A6;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+  z-index: 3;
+  line-height: 1;
+  font-style: italic;
+}
+
+/* Black Magnetic Stripe */
+.metrocard-button > span {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Button Text Container */
+.metrocard-button > .button-text {
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0039A6;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 7.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  z-index: 3;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Shine effect */
+.metrocard-button > .shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.metrocard-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.45),
+    inset 0 2px 3px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metrocard-button:active {
+  transform: translateY(-1px) scale(1);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 2px 3px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
 }

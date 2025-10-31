@@ -157,7 +157,7 @@ function MapPage() {
         <>
             {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
             <div className='h-[100vh] relative '>
-                <div className='mt-2 ml-10 mr-10 mb-2 font-["CutiveMono"]'>
+                <div className='absolute top-2 left-10 right-10 z-20 font-["CutiveMono"]'>
                     <SearchBox
                         accessToken={accessToken}
                         map={mapRef.current}
@@ -176,8 +176,12 @@ function MapPage() {
                 <div id='map-container' ref={mapContainerRef} />
                 {(wayPoints.length >= 2) &&
                     <button
-                        className='absolute bottom-20 z-10 bg-black text-white left-[45%] p-3 ring-3'
-                        onClick={handleSaveRoute}>save your day</button>
+                        className='metrocard-button absolute bottom-8 z-[999] left-1/2 -translate-x-1/2'
+                        onClick={handleSaveRoute}>
+                        <span className="shine"></span>
+                        <span></span>
+                        <span className="button-text">Insert this way / This side facing you ➤➤➤</span>
+                    </button>
                 }
             </div>
 

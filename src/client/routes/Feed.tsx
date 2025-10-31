@@ -60,35 +60,43 @@ function Feed() {
             <div className="light-green-tile-bg h-[3%]"></div>
             <div className="dark-green-tile-bg h-[8%] "></div>
             <div className="light-green-tile-bg h-[3%]"></div>
-            <div className="tile-bg h-[76%] flex items-center justify-center">
+            <div className="tile-bg h-[76%] flex items-center justify-center overflow-hidden">
                 {
                     post ? (
-                        // This outer div centers the "flyer" on your gray tile background.
-                        <div className="flex justify-center items-center w-full p-5">
+                        <div className="flex justify-center items-center w-full h-full p-5">
+                            {/* MTA ANNOUNCEMENT FLYER */}
+                            <div className="flex flex-col bg-white max-w-lg w-full border-4 border-black max-h-full overflow-y-auto">
 
-                            {/* THE FLYER
-              - max-w-lg to keep the "longer" paper feel.
-            */}
-                            <div className="flex flex-col bg-white shadow-lg max-w-lg w-full border border-gray-300">
+                                {/* MTA HEADER */}
+                                <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
+                                    <div className="text-sm font-['ArchivoNarrow'] font-bold tracking-widest mb-0.5">
+                                        NYC TRANSIT AUTHORITY
+                                    </div>
+                                    <div className="text-xs font-['ArchivoNarrow'] tracking-wider">
+                                        SERVICE MEMORY NOTICE
+                                    </div>
+                                </div>
 
-                                {/* BLACK HEADER BAR */}
-                                <div className="bg-black text-white p-4">
-                                    <div className="text-3xl font-sans font-bold uppercase tracking-wide">
+                                {/* TITLE SECTION */}
+                                <div className="px-4 py-3 border-b-2 border-black bg-yellow-300">
+                                    <div className="text-3xl font-['ArchivoNarrow'] font-black uppercase leading-tight">
                                         {post.title}
                                     </div>
                                 </div>
 
-                                {/* --- TAGS SECTION --- */}
+                                {/* TAGS AS SERVICE CONDITIONS */}
                                 {(post.weather_tags?.length > 0 || post.mood_tags?.length > 0) && (
-                                    <div className="p-4 border-b border-gray-300">
+                                    <div className="px-4 py-3 border-b-2 border-gray-300 bg-gray-50">
                                         {post.weather_tags?.length > 0 && (
-                                            <div className="mb-3">
-                                                <div className="text-xs font-semibold tracking-wider mb-1 text-gray-600">WEATHER</div>
-                                                <div className="flex flex-wrap gap-2">
+                                            <div className="mb-2">
+                                                <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                                    CONDITIONS
+                                                </div>
+                                                <div className="flex flex-wrap gap-1.5">
                                                     {post.weather_tags.map((tag: string) => (
                                                         <span 
                                                             key={tag}
-                                                            className="px-3 py-1 text-xs font-semibold tracking-wide border border-black bg-[#f5f3ed] uppercase"
+                                                            className="px-2 py-1 text-xs font-['ArchivoNarrow'] font-bold tracking-wider bg-white border-2 border-black uppercase"
                                                         >
                                                             {tag}
                                                         </span>
@@ -98,12 +106,14 @@ function Feed() {
                                         )}
                                         {post.mood_tags?.length > 0 && (
                                             <div>
-                                                <div className="text-xs font-semibold tracking-wider mb-1 text-gray-600">MOOD</div>
-                                                <div className="flex flex-wrap gap-2">
+                                                <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                                    EXPERIENCE
+                                                </div>
+                                                <div className="flex flex-wrap gap-1.5">
                                                     {post.mood_tags.map((tag: string) => (
                                                         <span 
                                                             key={tag}
-                                                            className="px-3 py-1 text-xs font-semibold tracking-wide border border-black bg-[#f5f3ed] uppercase"
+                                                            className="px-2 py-1 text-xs font-['ArchivoNarrow'] font-bold tracking-wider bg-white border-2 border-black uppercase"
                                                         >
                                                             {tag}
                                                         </span>
@@ -113,23 +123,38 @@ function Feed() {
                                         )}
                                     </div>
                                 )}
-                                {/* --- END TAGS SECTION --- */}
 
-
-                                {/* MAP IMAGE */}
+                                {/* ROUTE MAP */}
                                 {post.route_geometry && (
-                                    <div className="p-4">
-                                        <img
-                                            src={buildMapImgUrl(post.route_geometry)}
-                                            className="w-full h-auto border border-gray-200"
-                                            alt="Route map"
-                                        />
+                                    <div className="px-4 py-3 bg-white border-b-2 border-gray-300">
+                                        <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                            ROUTE INFORMATION
+                                        </div>
+                                        <div className="border-2 border-black">
+                                            <img
+                                                src={buildMapImgUrl(post.route_geometry)}
+                                                className="w-full h-auto"
+                                                alt="Route map"
+                                            />
+                                        </div>
                                     </div>
                                 )}
 
-                                {/* CONTENT TEXT */}
-                                <div className="px-4 pb-4">
-                                    <p className="text-lg font-sans">{post.content}</p>
+                                {/* DETAILS */}
+                                <div className="px-4 py-3 bg-white">
+                                    <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                        DETAILS
+                                    </div>
+                                    <p className="text-base font-['ArchivoNarrow'] leading-relaxed">
+                                        {post.content}
+                                    </p>
+                                </div>
+
+                                {/* FOOTER */}
+                                <div className="px-4 py-2 bg-gray-100 border-t-2 border-gray-300">
+                                    <div className="text-[0.65rem] font-['ArchivoNarrow'] text-gray-600 text-center tracking-wider">
+                                        For more information visit mta.info or call 511
+                                    </div>
                                 </div>
 
                             </div>

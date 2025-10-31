@@ -63,9 +63,9 @@ function Feed() {
             <div className="tile-bg h-[76%] flex items-center justify-center overflow-hidden">
                 {
                     post ? (
-                        <div className="flex justify-center items-center w-full h-full p-5">
+                        <div className="flex justify-center items-center w-full h-full">
                             {/* MTA ANNOUNCEMENT FLYER */}
-                            <div className="flex flex-col bg-white max-w-lg w-full border-4 border-black max-h-full overflow-y-auto">
+                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[400px] border-4 border-black overflow-y-auto" style={{maxHeight: '90%'}}>
 
                                 {/* MTA HEADER */}
                                 <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
@@ -78,7 +78,7 @@ function Feed() {
                                 </div>
 
                                 {/* TITLE SECTION */}
-                                <div className="px-4 py-3 border-b-2 border-black bg-yellow-300">
+                                <div className="px-4 py-3 border-b-2 border-black bg-[#ffd54f]">
                                     <div className="text-3xl font-['ArchivoNarrow'] font-black uppercase leading-tight">
                                         {post.title}
                                     </div>
@@ -86,7 +86,7 @@ function Feed() {
 
                                 {/* TAGS AS SERVICE CONDITIONS */}
                                 {(post.weather_tags?.length > 0 || post.mood_tags?.length > 0) && (
-                                    <div className="px-4 py-3 border-b-2 border-gray-300 bg-gray-50">
+                                    <div className="px-4 py-3 border-b-2 border-gray-400 bg-[#f5f2ea]">
                                         {post.weather_tags?.length > 0 && (
                                             <div className="mb-2">
                                                 <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
@@ -126,7 +126,7 @@ function Feed() {
 
                                 {/* ROUTE MAP */}
                                 {post.route_geometry && (
-                                    <div className="px-4 py-3 bg-white border-b-2 border-gray-300">
+                                    <div className="px-4 py-3 bg-[#faf8f3] border-b-2 border-gray-400">
                                         <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
                                             ROUTE INFORMATION
                                         </div>
@@ -141,7 +141,7 @@ function Feed() {
                                 )}
 
                                 {/* DETAILS */}
-                                <div className="px-4 py-3 bg-white">
+                                <div className="px-4 py-3 bg-[#faf8f3]">
                                     <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
                                         DETAILS
                                     </div>
@@ -151,7 +151,7 @@ function Feed() {
                                 </div>
 
                                 {/* FOOTER */}
-                                <div className="px-4 py-2 bg-gray-100 border-t-2 border-gray-300">
+                                <div className="px-4 py-2 bg-[#e8e6df] border-t-2 border-gray-400">
                                     <div className="text-[0.65rem] font-['ArchivoNarrow'] text-gray-600 text-center tracking-wider">
                                         For more information visit mta.info or call 511
                                     </div>

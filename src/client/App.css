@@ -435,3 +435,35 @@
     );
   pointer-events: none;
 }
+
+/* Turnstile Arrow Buttons */
+.turnstile-arrow {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #5a9287 0%, #3d7066 100%);
+  border: 3px solid #2d4f47;
+  color: #ff8542;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.15s ease;
+  position: relative;
+  -webkit-text-stroke: 8px #ff8542;
+  paint-order: stroke fill;
+}
+
+.turnstile-arrow:hover {
+  background: linear-gradient(180deg, #6aa797 0%, #4d8076 100%);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.turnstile-arrow:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

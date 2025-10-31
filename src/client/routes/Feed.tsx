@@ -76,7 +76,7 @@ function Feed() {
                         {posts.length > 1 && (
                             <button
                                 onClick={handlePrevious}
-                                className="absolute left-4 z-10 bg-black text-white w-12 h-12 flex items-center justify-center text-3xl font-bold hover:bg-gray-800 transition-colors border-2 border-white"
+                                className="turnstile-arrow absolute left-4 z-10"
                             >
                                 ←
                             </button>
@@ -188,7 +188,7 @@ function Feed() {
                         {posts.length > 1 && (
                             <button
                                 onClick={handleNext}
-                                className="absolute right-4 z-10 bg-black text-white w-12 h-12 flex items-center justify-center text-3xl font-bold hover:bg-gray-800 transition-colors border-2 border-white"
+                                className="turnstile-arrow absolute right-4 z-10"
                             >
                                 →
                             </button>

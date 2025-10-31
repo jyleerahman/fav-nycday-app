@@ -57,7 +57,7 @@ function Feed() {
 
     return (
         <>
-            <div className="tile-bg h-[10%]">
+            <div className="tile-bg h-[8%]">
                 <div className="ml-5 w-[20rem] h-[4rem] bg-black text-white flex font-['ArchivoNarrow'] items-center">
                     <button onClick={handleExit} className="font-extrabold text-5xl pl-2 pr-2">←</button>
                     <button onClick={handleExit} className="bg-red-700 h-full flex items-center justify-center text-5xl p-2">Exit</button>
@@ -66,10 +66,10 @@ function Feed() {
                 </div>
             </div>
 
-            <div className="light-green-tile-bg h-[3%]"></div>
-            <div className="dark-green-tile-bg h-[8%] "></div>
-            <div className="light-green-tile-bg h-[3%]"></div>
-            <div className="tile-bg h-[76%] flex items-center justify-center overflow-hidden relative pt-8">
+            <div className="light-green-tile-bg h-[2%]"></div>
+            <div className="dark-green-tile-bg h-[6%] "></div>
+            <div className="light-green-tile-bg h-[2%]"></div>
+            <div className="tile-bg h-[82%] flex items-center justify-center overflow-hidden relative pt-8">
                 {currentPost ? (
                     <>
                         {/* PREVIOUS ARROW */}
@@ -91,7 +91,7 @@ function Feed() {
                                 </div>
                             )}
                             
-                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[400px] h-[600px] border-4 border-black overflow-y-auto">
+                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[90vw] max-w-[450px] h-[85vh] max-h-[700px] border-4 border-black overflow-y-auto">
                                 {/* MTA HEADER */}
                                 <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
                                     <div className="text-sm font-sans font-bold tracking-widest mb-0.5">

@@ -45,14 +45,174 @@
   z-index: 1;
 }
 
+/* Subway Map Container */
+.subway-map-container {
+  position: relative;
+}
+
+/* Pizza Rat */
+.pizza-rat {
+  position: fixed;
+  bottom: 20px;
+  left: -100px;
+  font-size: 2.5rem;
+  z-index: 9999;
+  animation: pizza-rat-scurry 25s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes pizza-rat-scurry {
+  0% {
+    left: -100px;
+    bottom: 20px;
+    transform: scaleX(-1) rotate(0deg);
+  }
+  8% {
+    left: 15vw;
+    bottom: 25px;
+    transform: scaleX(-1) rotate(-3deg);
+  }
+  12% {
+    left: 18vw;
+    bottom: 18px;
+    transform: scaleX(-1) rotate(2deg);
+  }
+  20% {
+    left: 30vw;
+    bottom: 35px;
+    transform: scaleX(-1) rotate(-5deg);
+  }
+  28% {
+    left: 35vw;
+    bottom: 22px;
+    transform: scaleX(-1) rotate(4deg);
+  }
+  35% {
+    left: 48vw;
+    bottom: 28px;
+    transform: scaleX(-1) rotate(-2deg);
+  }
+  40% {
+    left: 50vw;
+    bottom: 20px;
+    transform: scaleX(-1) rotate(0deg);
+  }
+  48% {
+    left: 62vw;
+    bottom: 32px;
+    transform: scaleX(-1) rotate(6deg);
+  }
+  55% {
+    left: 68vw;
+    bottom: 18px;
+    transform: scaleX(-1) rotate(-4deg);
+  }
+  65% {
+    left: 78vw;
+    bottom: 26px;
+    transform: scaleX(-1) rotate(3deg);
+  }
+  75% {
+    left: 85vw;
+    bottom: 22px;
+    transform: scaleX(-1) rotate(-2deg);
+  }
+  85% {
+    left: 92vw;
+    bottom: 30px;
+    transform: scaleX(-1) rotate(5deg);
+  }
+  95% {
+    left: 98vw;
+    bottom: 24px;
+    transform: scaleX(-1) rotate(-3deg);
+  }
+  100% {
+    left: 105vw;
+    bottom: 20px;
+    transform: scaleX(-1) rotate(0deg);
+  }
+}
+
+.subway-map-frame {
+  border: 16px solid transparent;
+  border-image: linear-gradient(
+    135deg,
+    #d4d4d4 0%,
+    #f0f0f0 15%,
+    #c0c0c0 30%,
+    #e8e8e8 45%,
+    #a8a8a8 60%,
+    #d8d8d8 75%,
+    #b8b8b8 90%,
+    #e0e0e0 100%
+  ) 1;
+  box-shadow: 
+    inset 0 0 0 2px #888888,
+    inset 0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: #f7f4ed;
+  position: relative;
+  border-radius: 4px;
+}
+
+.subway-map-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.01) 1px,
+      rgba(0, 0, 0, 0.01) 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.01) 1px,
+      rgba(0, 0, 0, 0.01) 2px
+    );
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 2px;
+}
+
+.subway-map-frame::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border-radius: 4px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.1) 3px,
+      rgba(255, 255, 255, 0.1) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  pointer-events: none;
+  z-index: 2;
+}
+
 .marker {
-  background-color: #fff;
-  font-size: 1rem;
-  height: 2rem;
-  width: 2rem;
+  background-color: #ffffff;
+  font-size: 1.2rem;
+  height: 2.5rem;
+  width: 2.5rem;
   display: grid;
   place-items: center;
   border-radius: 50%;
+  border: 4px solid #000000;
+  box-shadow: 
+    0 0 0 2px #ffffff,
+    0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .sidebar {

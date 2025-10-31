@@ -156,33 +156,38 @@ function MapPage() {
     return (
         <>
             {/* <div>{JSON.stringify(wayPoints, null, 2)}</div> */}
-            <div className='h-[100vh] relative '>
-                <div className='absolute top-2 left-10 right-10 z-20 font-["CutiveMono"]'>
-                    <SearchBox
-                        accessToken={accessToken}
-                        map={mapRef.current}
-                        mapboxgl={mapboxgl}
-                        value={inputValue}
-                        theme={theme}
-                        onChange={(d) => {
-                            setInputValue(d);
-                        }}
+            <div className='h-[100vh] w-full p-12 tile-bg subway-map-container'>
+                <div className='h-full w-full relative overflow-hidden subway-map-frame'>
+                    <div className='absolute top-4 left-10 right-10 z-20 font-["CutiveMono"]'>
+                        <SearchBox
+                            accessToken={accessToken}
+                            map={mapRef.current}
+                            mapboxgl={mapboxgl}
+                            value={inputValue}
+                            theme={theme}
+                            onChange={(d) => {
+                                setInputValue(d);
+                            }}
 
-                        onRetrieve={getwayPoints} // [lon,lat] 
-                        marker={false}
-                    />
+                            onRetrieve={getwayPoints} // [lon,lat] 
+                            marker={false}
+                        />
+                    </div>
+
+                    <div id='map-container' ref={mapContainerRef} />
+                    {(wayPoints.length >= 2) &&
+                        <button
+                            className='metrocard-button absolute bottom-12 z-[999] left-1/2 -translate-x-1/2'
+                            onClick={handleSaveRoute}>
+                            <span className="shine"></span>
+                            <span></span>
+                            <span className="button-text">Insert this way / This side facing you ➤➤➤</span>
+                        </button>
+                    }
                 </div>
-
-                <div id='map-container' ref={mapContainerRef} />
-                {(wayPoints.length >= 2) &&
-                    <button
-                        className='metrocard-button absolute bottom-8 z-[999] left-1/2 -translate-x-1/2'
-                        onClick={handleSaveRoute}>
-                        <span className="shine"></span>
-                        <span></span>
-                        <span className="button-text">Insert this way / This side facing you ➤➤➤</span>
-                    </button>
-                }
+                
+                {/* Pizza Rat */}
+                <div className='pizza-rat' title="Pizza Rat! 🍕">🍕    🐀</div>
             </div>
 
         </>

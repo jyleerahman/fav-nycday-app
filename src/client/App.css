@@ -104,3 +104,59 @@
   background-image: linear-gradient(#737373 1.6px, transparent 1.6px), linear-gradient(to right, #737373 1.6px, #e7e2dc 1.6px);
   background-size: 36px 36px;
 }
+
+/* Ticket Stub Styles */
+.ticket-stub {
+  position: relative;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.ticket-stub:hover {
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.selected-ticket {
+  background-color: #e8e5dc !important;
+}
+
+/* Hole Punch Effect */
+.hole-punch {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, transparent 8px, #d1d3e5 8px);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: punch 0.2s ease-out;
+}
+
+.hole-punch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: #d1d3e5;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes punch {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}

@@ -171,23 +171,23 @@ function Feed() {
             </div>
 
             <div className="light-green-tile-bg h-[2%]"></div>
-            <div className="dark-green-tile-bg h-[6%] flex items-center justify-center gap-2 px-4">
+            <div className="dark-green-tile-bg h-[6%] flex items-center justify-center gap-3 px-4">
                 {/* SEARCH BAR */}
                 <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="🔍 Search routes, places, creators..."
-                    className="flex-1 max-w-[400px] px-4 py-2 rounded-full font-['ArchivoNarrow'] text-sm border-2 border-[#ff6319] focus:outline-none focus:border-[#ffd54f] bg-white"
+                    className="flex-1 max-w-[450px] px-4 py-2.5 font-['ArchivoNarrow'] font-semibold text-sm border-3 border-black focus:outline-none focus:border-[#ffd54f] bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                 />
                 
                 {/* FILTER TOGGLE */}
                 <button
                     onClick={() => setShowFilters(!showFilters)}
-                    className={`px-4 py-2 rounded-full font-['ArchivoNarrow'] font-bold text-sm border-2 transition-colors ${
+                    className={`px-5 py-2.5 font-['ArchivoNarrow'] font-black text-sm border-3 border-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] ${
                         showFilters || selectedWeatherFilter || selectedMoodFilter
-                            ? 'bg-[#ff6319] text-white border-[#ff6319]'
-                            : 'bg-white text-[#ff6319] border-[#ff6319] hover:bg-[#fff5e6]'
+                            ? 'bg-[#ffd54f] text-black'
+                            : 'bg-white text-black'
                     }`}
                 >
                     {(selectedWeatherFilter || selectedMoodFilter) ? '✓ ' : ''}Filters
@@ -197,7 +197,7 @@ function Feed() {
                 {(searchQuery || selectedWeatherFilter || selectedMoodFilter) && (
                     <button
                         onClick={clearFilters}
-                        className="px-4 py-2 rounded-full font-['ArchivoNarrow'] font-bold text-sm bg-white text-gray-600 border-2 border-gray-400 hover:bg-gray-100"
+                        className="px-5 py-2.5 font-['ArchivoNarrow'] font-black text-sm bg-[#c92a2a] text-white border-3 border-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
                     >
                         Clear
                     </button>

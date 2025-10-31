@@ -9,6 +9,7 @@ const MOOD_TAGS = ['happy', 'peaceful', 'energetic', 'nostalgic', 'adventurous',
 function Post(props) {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
+    const [createdBy, setCreatedBy] = useState("")
     const [selectedWeatherTags, setSelectedWeatherTags] = useState<string[]>([])
     const [selectedMoodTags, setSelectedMoodTags] = useState<string[]>([])
     const navigate = useNavigate()
@@ -53,6 +54,7 @@ function Post(props) {
         const newPost = {
             title: title,
             content: content,
+            created_by: createdBy || "Anonymous",
             // this is global state! omg
             route_geometry: currentRoute,
             waypoints: currentWaypoints,
@@ -66,6 +68,7 @@ function Post(props) {
                 .insert([newPost])
             setTitle("")
             setContent("")
+            setCreatedBy("")
             setSelectedWeatherTags([])
             setSelectedMoodTags([])
         } catch (err) {
@@ -133,11 +136,23 @@ function Post(props) {
                                 value={content}
                                 onChange={handleContentChange}
                                 placeholder='Cheap eats day on williamsburg...'
-                                className='font-["CutiveMono"] border-b-2 border-[#0039A6] h-[25%] p-4 w-full resize-none outline-none'>
+                                className='font-["CutiveMono"] border-b-2 border-[#0039A6] h-[22%] p-4 w-full resize-none outline-none'>
                             </textarea>
                             
+                            {/* Creator Name */}
+                            <div className='border-b-2 border-[#0039A6] h-[7%] flex items-center px-4 bg-white'>
+                                <label className='text-[0.65rem] font-bold tracking-wider text-[#0039A6] mr-2'>👤 BY:</label>
+                                <input
+                                    type="text"
+                                    value={createdBy}
+                                    onChange={(e) => setCreatedBy(e.target.value)}
+                                    placeholder='Your name (or stay Anonymous)'
+                                    className='flex-1 font-["ArchivoNarrow"] text-sm outline-none'
+                                />
+                            </div>
+                            
                             {/* Tags Section */}
-                            <div className='border-b-2 border-[#0039A6] h-[16%] p-2.5 bg-[#f7f4ed]'>
+                            <div className='border-b-2 border-[#0039A6] h-[15%] p-2.5 bg-[#f7f4ed]'>
                                 <div>
                                     <div className='text-[0.65rem] font-bold mb-0.5 tracking-wider text-[#0039A6]'>☀ WEATHER</div>
                                     <div className='flex flex-wrap gap-1'>
@@ -153,7 +168,7 @@ function Post(props) {
                                 </div>
                             </div>
 
-                            <div className='border-b-2 border-[#0039A6] h-[20%] p-2.5 bg-[#f7f4ed]'>
+                            <div className='border-b-2 border-[#0039A6] h-[18%] p-2.5 bg-[#f7f4ed]'>
                                 <div>
                                     <div className='text-[0.65rem] font-bold mb-0.5 tracking-wider text-[#0039A6]'>😊 MOOD</div>
                                     <div className='flex flex-wrap gap-1'>

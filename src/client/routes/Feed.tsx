@@ -32,7 +32,7 @@ function Feed() {
             try {
                 const { data, error } = await supabase
                     .from("post")
-                    .select("title, content, route_geometry")
+                    .select("title, content, route_geometry, weather_tags, mood_tags")
                     .order("created_at", { ascending: false })
                     .limit(1)
                     .single()
@@ -78,22 +78,42 @@ function Feed() {
                                     </div>
                                 </div>
 
-                                {/* --- NEW MOOD & WEATHER SECTION (MTA Style) --- */}
-                                <div className="p-4 border-b border-gray-300">
-
-                                    {/* Emojis as "Service Bullets" */}
-                                    <div className="flex flex-row gap-3 mb-2">
-                                        <div className="text-3xl">{post.weather_emoji}</div>
-                                        <div className="text-3xl">{post.mood_emoji}</div>
+                                {/* --- TAGS SECTION --- */}
+                                {(post.weather_tags?.length > 0 || post.mood_tags?.length > 0) && (
+                                    <div className="p-4 border-b border-gray-300">
+                                        {post.weather_tags?.length > 0 && (
+                                            <div className="mb-3">
+                                                <div className="text-xs font-semibold tracking-wider mb-1 text-gray-600">WEATHER</div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {post.weather_tags.map((tag: string) => (
+                                                        <span 
+                                                            key={tag}
+                                                            className="px-3 py-1 text-xs font-semibold tracking-wide border border-black bg-[#f5f3ed] uppercase"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {post.mood_tags?.length > 0 && (
+                                            <div>
+                                                <div className="text-xs font-semibold tracking-wider mb-1 text-gray-600">MOOD</div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {post.mood_tags.map((tag: string) => (
+                                                        <span 
+                                                            key={tag}
+                                                            className="px-3 py-1 text-xs font-semibold tracking-wide border border-black bg-[#f5f3ed] uppercase"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
-
-                                    {/* The "Alert" Text */}
-                                    <div className="text-2xl font-sans font-bold uppercase text-red-600">
-                                        {post.weather_text} // {post.mood_text}
-                                    </div>
-
-                                </div>
-                                {/* --- END NEW SECTION --- */}
+                                )}
+                                {/* --- END TAGS SECTION --- */}
 
 
                                 {/* MAP IMAGE */}

@@ -18,6 +18,15 @@ function Post(props) {
     //get the state 
     const currentRoute = useAppStore((state) => state.currentRoute);
 
+    // Get current date formatted like "OCT 31. 2025"
+    const getCurrentDate = () => {
+        const date = new Date();
+        const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month} ${day}. ${year}`;
+    };
+
     function handleTitleChange(e) {
         setTitle(e.target.value)
     }
@@ -106,7 +115,7 @@ function Post(props) {
                                         Issued by Your Perfect New York City Day
                                     </div>
                                     <div className='px-2 border-b-1 h-[50%] flex items-center text-4xl font-extrabold font-["KGAllofMe"]'>
-                                        OCT 28. 2025
+                                        {getCurrentDate()}
                                     </div>
                                     <input
                                         value={title}

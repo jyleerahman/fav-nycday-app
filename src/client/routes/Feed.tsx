@@ -109,45 +109,7 @@ function Feed() {
                                     </div>
                                 </div>
 
-                                {/* TAGS AS SERVICE CONDITIONS */}
-                                {(currentPost.weather_tags?.length > 0 || currentPost.mood_tags?.length > 0) && (
-                                    <div className="px-4 py-3 border-b-2 border-gray-400 bg-[#f5f2ea]">
-                                        {currentPost.weather_tags?.length > 0 && (
-                                            <div className="mb-2">
-                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
-                                                    CONDITIONS
-                                                </div>
-                                                <div className="flex flex-wrap gap-1.5">
-                                                    {currentPost.weather_tags.map((tag: string) => (
-                                                        <span 
-                                                            key={tag}
-                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
-                                                        >
-                                                            {tag}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                        {currentPost.mood_tags?.length > 0 && (
-                                            <div>
-                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
-                                                    EXPERIENCE
-                                                </div>
-                                                <div className="flex flex-wrap gap-1.5">
-                                                    {currentPost.mood_tags.map((tag: string) => (
-                                                        <span 
-                                                            key={tag}
-                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
-                                                        >
-                                                            {tag}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
+                               
 
                                 {/* ROUTE MAP */}
                                 {currentPost.route_geometry && (
@@ -191,6 +153,46 @@ function Feed() {
                                                 </div>
                                             ))}
                                         </div>
+                                    </div>
+                                )}
+
+ {/* TAGS AS SERVICE CONDITIONS */}
+ {(currentPost.weather_tags?.length > 0 || currentPost.mood_tags?.length > 0) && (
+                                    <div className="px-4 py-3 border-b-2 border-gray-400 bg-[#f5f2ea]">
+                                        {currentPost.weather_tags?.length > 0 && (
+                                            <div className="mb-2">
+                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
+                                                    CONDITIONS
+                                                </div>
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {currentPost.weather_tags.map((tag: string) => (
+                                                        <span 
+                                                            key={tag}
+                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {currentPost.mood_tags?.length > 0 && (
+                                            <div>
+                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
+                                                    EXPERIENCE
+                                                </div>
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {currentPost.mood_tags.map((tag: string) => (
+                                                        <span 
+                                                            key={tag}
+                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
 

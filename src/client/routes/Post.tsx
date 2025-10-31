@@ -79,13 +79,12 @@ function Post(props) {
                 onClick={onToggle}
                 className={`
                     relative ticket-stub
-                    px-3 py-1.5 text-xs
+                    px-2 py-1 text-[0.65rem]
                     font-["ArchivoNarrow"] font-semibold tracking-wide
-                    border border-black
-                    bg-[#f5f3ed]
+                    border-2 border-[#0039A6]
                     transition-all duration-200
                     hover:scale-105
-                    ${isSelected ? 'selected-ticket' : ''}
+                    ${isSelected ? 'bg-[#ff6319] text-white border-[#ff6319]' : 'bg-white text-[#0039A6]'}
                 `}
             >
                 {tag.toUpperCase()}
@@ -101,27 +100,30 @@ function Post(props) {
 
             <div className='h-[100vh] flex flex-col font-["ArchivoNarrow"] items-center justify-center tile-bg'>
                 <div className='shadow-natural mt-10 m-10 w-[350px] h-[95%]'>
-                    <div className='perforated-x h-full pl-3 pr-3 pt-10 pb-10 bg-[#d1d3e5]'>
-                        <div className='border-2 h-full'>
-                            <div className='border-b-1 h-[5%] flex'>
-                                <div className='font-extrabold font-["KGAllofMe"] text-[1.2rem] flex items-center justify-center w-full'>SPECIAL DAY</div>
+                    <div className='perforated-x h-full pl-3 pr-3 pt-10 pb-10 bg-white'>
+                        <div className='border-2 border-[#0039A6] h-full bg-white'>
+                            <div className='border-b-2 border-[#0039A6] h-[5%] flex bg-[#0039A6] relative'>
+                                <div className='absolute left-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#D14124] flex items-center justify-center'>
+                                    <span className='text-[#FFD034] text-[0.5rem] font-black'>MTA</span>
+                                </div>
+                                <div className='font-extrabold font-["KGAllofMe"] text-[1.2rem] flex items-center justify-center w-full text-white'>SPECIAL DAY PASS</div>
                             </div>
-                            <div className='flex border-b-1 h-[20%]'>
-                                <div className='border-r-1 flex items-center justify-center p-2 [writing-mode:vertical-rl] tracking-widest'>
+                            <div className='flex border-b-2 border-[#0039A6] h-[20%]'>
+                                <div className='border-r-2 border-[#0039A6] flex items-center justify-center p-2 [writing-mode:vertical-rl] tracking-widest bg-[#f7f4ed] font-bold text-[#ff6319]'>
                                     93493
                                 </div>
                                 <div className='flex flex-col w-full'>
-                                    <div className='px-2 border-b-1 h-[25%] flex items-center'>
-                                        Issued by Your Perfect New York City Day
+                                    <div className='px-2 border-b-1 border-[#0039A6] h-[25%] flex items-center text-[0.65rem] text-[#0039A6] font-semibold'>
+                                        MTA NYC TRANSIT • YOUR PERFECT DAY
                                     </div>
-                                    <div className='px-2 border-b-1 h-[50%] flex items-center text-4xl font-extrabold font-["KGAllofMe"]'>
+                                    <div className='px-2 border-b-1 border-[#0039A6] h-[50%] flex items-center text-4xl font-extrabold font-["KGAllofMe"] text-[#ff6319]'>
                                         {getCurrentDate()}
                                     </div>
                                     <input
                                         value={title}
                                         onChange={handleTitleChange}
                                         placeholder='Sunny Williamsburg day...'
-                                        className='px-2 h-[25%] font-["KGAllofMe"] flex items-center'>
+                                        className='px-2 h-[25%] font-["KGAllofMe"] flex items-center border-none outline-none'>
                                     </input>
                                 </div>
                             </div>
@@ -129,14 +131,14 @@ function Post(props) {
                                 value={content}
                                 onChange={handleContentChange}
                                 placeholder='Cheap eats day on williamsburg...'
-                                className='font-["CutiveMono"] border-b-1 h-[25%] p-4 w-full'>
+                                className='font-["CutiveMono"] border-b-2 border-[#0039A6] h-[25%] p-4 w-full resize-none outline-none'>
                             </textarea>
                             
                             {/* Tags Section */}
-                            <div className='border-b-1 h-[18%] p-3 overflow-y-auto'>
-                                <div className='mb-2'>
-                                    <div className='text-[0.65rem] font-semibold mb-1 tracking-wider'>WEATHER</div>
-                                    <div className='flex flex-wrap gap-1.5'>
+                            <div className='border-b-2 border-[#0039A6] h-[16%] p-2.5 bg-[#f7f4ed]'>
+                                <div>
+                                    <div className='text-[0.65rem] font-bold mb-0.5 tracking-wider text-[#0039A6]'>☀ WEATHER</div>
+                                    <div className='flex flex-wrap gap-1'>
                                         {WEATHER_TAGS.map(tag => (
                                             <TagTicket 
                                                 key={tag}
@@ -149,10 +151,10 @@ function Post(props) {
                                 </div>
                             </div>
 
-                            <div className='border-b-1 h-[18%] p-3 overflow-y-auto'>
+                            <div className='border-b-2 border-[#0039A6] h-[20%] p-2.5 bg-[#f7f4ed]'>
                                 <div>
-                                    <div className='text-[0.65rem] font-semibold mb-1 tracking-wider'>MOOD</div>
-                                    <div className='flex flex-wrap gap-1.5'>
+                                    <div className='text-[0.65rem] font-bold mb-0.5 tracking-wider text-[#0039A6]'>😊 MOOD</div>
+                                    <div className='flex flex-wrap gap-1'>
                                         {MOOD_TAGS.map(tag => (
                                             <TagTicket 
                                                 key={tag}
@@ -166,12 +168,12 @@ function Post(props) {
                             </div>
 
                             <div className='h-[14%]'>
-                                <div className='border-b-1 h-[50%] flex items-center justify-center'>
-                                    Issued on trips toward something station
+                                <div className='border-b-2 border-[#0039A6] h-[50%] flex items-center justify-center text-[0.65rem] text-[#666] italic'>
+                                    Valid for unlimited memories on all NYC routes
                                 </div>
                                 <button
                                     onClick={handleSavePost}
-                                    className='stamp-button h-[50%] w-full font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
+                                    className='subway-save-button h-[50%] w-full font-extrabold text-[1.5rem] font-["KGAllofMe"] flex items-center justify-center'>
                                     SAVE POST
                                 </button>
                             </div>

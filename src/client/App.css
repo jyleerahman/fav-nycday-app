@@ -402,6 +402,25 @@
   }
 }
 
+/* Subway Save Button */
+.subway-save-button {
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(180deg, #0039A6 0%, #002d7a 100%);
+  color: white;
+  transition: all 0.3s ease;
+  border-top: 2px solid #0039A6;
+}
+
+.subway-save-button:hover {
+  background: linear-gradient(180deg, #ff6319 0%, #e65100 100%);
+  transform: scale(1.02);
+}
+
+.subway-save-button:active {
+  transform: scale(0.98);
+}
+
 /* Stamp Button Effect */
 .stamp-button {
   position: relative;

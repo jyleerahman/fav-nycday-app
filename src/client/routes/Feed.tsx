@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useNavigate } from "react-router-dom";
 
 function Feed() {
     const [post, setPost] = useState({})
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const navigate = useNavigate();
 
     function buildMapImgUrl(geometry) {
         const MAPBOX_STYLE = "mapbox/streets-v12";
@@ -20,13 +22,17 @@ function Feed() {
         return `https://api.mapbox.com/styles/v1/${MAPBOX_STYLE}/static/${overlay}/${viewport}/${WIDTH}x${HEIGHT}?access_token=${MAPBOX_ACCESS_TOKEN}`;
     }
 
+    function handleExit() {
+        navigate('/')
+    }
+
     useEffect(() => {
         const fetchPosts = async () => {
 
             try {
                 const { data, error } = await supabase
                     .from("post")
-                    .select("title, content, route_geometry")
+                    .select("title, content, route_geometry, weather_tags, mood_tags")
                     .order("created_at", { ascending: false })
                     .limit(1)
                     .single()
@@ -44,9 +50,9 @@ function Feed() {
         <>
             <div className="tile-bg h-[10%]">
                 <div className="ml-5 w-[20rem] h-[4rem] bg-black text-white flex font-['ArchivoNarrow'] items-center">
-                    <div className="font-extrabold text-5xl pl-2 pr-2">←</div>
-                    <div className="bg-red-700 h-full flex items-center justify-center text-5xl p-2">Exit</div>
-                    <div className=" text-xl flex pl-2">Canal St & Broadway</div>
+                    <button onClick={handleExit} className="font-extrabold text-5xl pl-2 pr-2">←</button>
+                    <button onClick={handleExit} className="bg-red-700 h-full flex items-center justify-center text-5xl p-2">Exit</button>
+                    <div className="text-xl flex pl-2">Canal St & Broadway</div>
 
                 </div>
             </div>
@@ -54,23 +60,111 @@ function Feed() {
             <div className="light-green-tile-bg h-[3%]"></div>
             <div className="dark-green-tile-bg h-[8%] "></div>
             <div className="light-green-tile-bg h-[3%]"></div>
-            <div className="tile-bg h-[76%] flex items-center justify-center">
-                <div className="w-[50%] h-[80%] bg-white border-8 flex flex-col font-['ArchivoNarrow'] items-center">
-                    {post ? (
-                        <div className="flex flex-col gap-5 m-5 justify-center items-center">
-                            <div className="text-5xl font-['Chomsky']">{post.title}</div>
-                            {post.route_geometry && (
-                                <img
-                                    src={buildMapImgUrl(post.route_geometry)}
-                                    style={{ width: "100%", maxWidth: "600px", height: "auto" }}></img>
-                            )}
-                            <p className="text-2xl">{post.content}</p>
+            <div className="tile-bg h-[76%] flex items-center justify-center overflow-hidden">
+                {
+                    post ? (
+                        <div className="flex justify-center items-center w-full h-full">
+                            {/* MTA ANNOUNCEMENT FLYER */}
+                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[400px] border-4 border-black overflow-y-auto" style={{maxHeight: '90%'}}>
+
+                                {/* MTA HEADER */}
+                                <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
+                                    <div className="text-sm font-sans font-bold tracking-widest mb-0.5">
+                                        NYC TRANSIT AUTHORITY
+                                    </div>
+                                    <div className="text-xs font-sans tracking-wider">
+                                        SERVICE MEMORY NOTICE
+                                    </div>
+                                </div>
+
+                                {/* TITLE SECTION */}
+                                <div className="px-4 py-3 border-b-2 border-black bg-[#ffd54f]">
+                                    <div className="text-3xl font-sans font-black uppercase leading-tight">
+                                        {post.title}
+                                    </div>
+                                </div>
+
+                                {/* TAGS AS SERVICE CONDITIONS */}
+                                {(post.weather_tags?.length > 0 || post.mood_tags?.length > 0) && (
+                                    <div className="px-4 py-3 border-b-2 border-gray-400 bg-[#f5f2ea]">
+                                        {post.weather_tags?.length > 0 && (
+                                            <div className="mb-2">
+                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
+                                                    CONDITIONS
+                                                </div>
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {post.weather_tags.map((tag: string) => (
+                                                        <span 
+                                                            key={tag}
+                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                        {post.mood_tags?.length > 0 && (
+                                            <div>
+                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
+                                                    EXPERIENCE
+                                                </div>
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {post.mood_tags.map((tag: string) => (
+                                                        <span 
+                                                            key={tag}
+                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* ROUTE MAP */}
+                                {post.route_geometry && (
+                                    <div className="px-4 py-3 bg-[#faf8f3] border-b-2 border-gray-400">
+                                        <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
+                                            ROUTE INFORMATION
+                                        </div>
+                                        <div className="border-2 border-black">
+                                            <img
+                                                src={buildMapImgUrl(post.route_geometry)}
+                                                className="w-full h-auto"
+                                                alt="Route map"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* DETAILS */}
+                                <div className="px-4 py-3 bg-[#faf8f3]">
+                                    <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
+                                        DETAILS
+                                    </div>
+                                    <p className="text-base font-sans leading-relaxed">
+                                        {post.content}
+                                    </p>
+                                </div>
+
+                                {/* FOOTER */}
+                                <div className="px-4 py-2 bg-[#e8e6df] border-t-2 border-gray-400">
+                                    <div className="text-[0.65rem] font-sans text-gray-600 text-center tracking-wider">
+                                        For more information visit mta.info or call 511
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     ) : (
                         <p>No post found.</p>
-                    )}
-                </div>
+                    )
+                }
             </div>
+
         </>
     )
 }

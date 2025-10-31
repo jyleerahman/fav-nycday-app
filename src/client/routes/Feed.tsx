@@ -69,17 +69,17 @@ function Feed() {
 
                                 {/* MTA HEADER */}
                                 <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
-                                    <div className="text-sm font-['ArchivoNarrow'] font-bold tracking-widest mb-0.5">
+                                    <div className="text-sm font-sans font-bold tracking-widest mb-0.5">
                                         NYC TRANSIT AUTHORITY
                                     </div>
-                                    <div className="text-xs font-['ArchivoNarrow'] tracking-wider">
+                                    <div className="text-xs font-sans tracking-wider">
                                         SERVICE MEMORY NOTICE
                                     </div>
                                 </div>
 
                                 {/* TITLE SECTION */}
                                 <div className="px-4 py-3 border-b-2 border-black bg-[#ffd54f]">
-                                    <div className="text-3xl font-['ArchivoNarrow'] font-black uppercase leading-tight">
+                                    <div className="text-3xl font-sans font-black uppercase leading-tight">
                                         {post.title}
                                     </div>
                                 </div>
@@ -89,14 +89,14 @@ function Feed() {
                                     <div className="px-4 py-3 border-b-2 border-gray-400 bg-[#f5f2ea]">
                                         {post.weather_tags?.length > 0 && (
                                             <div className="mb-2">
-                                                <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
                                                     CONDITIONS
                                                 </div>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {post.weather_tags.map((tag: string) => (
                                                         <span 
                                                             key={tag}
-                                                            className="px-2 py-1 text-xs font-['ArchivoNarrow'] font-bold tracking-wider bg-white border-2 border-black uppercase"
+                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
                                                         >
                                                             {tag}
                                                         </span>
@@ -106,14 +106,14 @@ function Feed() {
                                         )}
                                         {post.mood_tags?.length > 0 && (
                                             <div>
-                                                <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                                <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
                                                     EXPERIENCE
                                                 </div>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {post.mood_tags.map((tag: string) => (
                                                         <span 
                                                             key={tag}
-                                                            className="px-2 py-1 text-xs font-['ArchivoNarrow'] font-bold tracking-wider bg-white border-2 border-black uppercase"
+                                                            className="px-2 py-1 text-xs font-sans font-bold tracking-wider bg-white border-2 border-black uppercase"
                                                         >
                                                             {tag}
                                                         </span>
@@ -127,7 +127,7 @@ function Feed() {
                                 {/* ROUTE MAP */}
                                 {post.route_geometry && (
                                     <div className="px-4 py-3 bg-[#faf8f3] border-b-2 border-gray-400">
-                                        <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                        <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
                                             ROUTE INFORMATION
                                         </div>
                                         <div className="border-2 border-black">
@@ -142,17 +142,17 @@ function Feed() {
 
                                 {/* DETAILS */}
                                 <div className="px-4 py-3 bg-[#faf8f3]">
-                                    <div className="text-[0.7rem] font-['ArchivoNarrow'] font-black tracking-widest mb-1.5 text-gray-700">
+                                    <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
                                         DETAILS
                                     </div>
-                                    <p className="text-base font-['ArchivoNarrow'] leading-relaxed">
+                                    <p className="text-base font-sans leading-relaxed">
                                         {post.content}
                                     </p>
                                 </div>
 
                                 {/* FOOTER */}
                                 <div className="px-4 py-2 bg-[#e8e6df] border-t-2 border-gray-400">
-                                    <div className="text-[0.65rem] font-['ArchivoNarrow'] text-gray-600 text-center tracking-wider">
+                                    <div className="text-[0.65rem] font-sans text-gray-600 text-center tracking-wider">
                                         For more information visit mta.info or call 511
                                     </div>
                                 </div>

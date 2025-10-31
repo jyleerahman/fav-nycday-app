@@ -67,6 +67,39 @@ function MapPage() {
             setMapLoaded(true);
         });
 
+        // Add click handler to add waypoints by clicking on map
+        mapRef.current.on('click', async (e) => {
+            const { lng, lat } = e.lngLat;
+            
+            // Reverse geocode to get place name
+            try {
+                const response = await fetch(
+                    `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${accessToken}`
+                );
+                const data = await response.json();
+                
+                // Get the place name (prefer place, poi, address, or use coordinates)
+                let name = "Custom Location";
+                if (data.features && data.features.length > 0) {
+                    const feature = data.features[0];
+                    name = feature.text || feature.place_name || `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                }
+                
+                // Add waypoint
+                setWayPoints(prev => [
+                    ...prev,
+                    { id: crypto.randomUUID(), name, lng, lat }
+                ]);
+            } catch (error) {
+                console.error("Geocoding error:", error);
+                // If geocoding fails, still add the point with coordinates as name
+                setWayPoints(prev => [
+                    ...prev,
+                    { id: crypto.randomUUID(), name: `${lat.toFixed(4)}, ${lng.toFixed(4)}`, lng, lat }
+                ]);
+            }
+        });
+
         return () => {
             markersRef.current.forEach(m => m.remove());
             markersRef.current = [];

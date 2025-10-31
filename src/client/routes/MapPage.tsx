@@ -3,7 +3,6 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SearchBox } from "@mapbox/search-js-react"
 import { useNavigate } from 'react-router-dom';
-import { useRouteStore } from "../store.js";
 import polyline from "@mapbox/polyline";
 import { useAppStore } from '../store.js';
 
@@ -15,7 +14,7 @@ type WayPoints = {
 }
 
 function MapPage() {
-    const mapRef = useRef<Map | null>(null);
+    const mapRef = useRef<mapboxgl.Map | null>(null);
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const [mapLoaded, setMapLoaded] = useState(false);
     const [inputValue, setInputValue] = useState("");
@@ -23,8 +22,9 @@ function MapPage() {
     const accessToken = "pk.eyJ1IjoianlyYWhtYW4iLCJhIjoiY21oNHozb3NqMDI3ZjJycHU1N2JsazhtdiJ9.ho51ANPXxlvowesHLDv9Dg"
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const navigate = useNavigate();
-    // get the setter
-    const setCurrentRoute = useAppStore((state) => state.setCurrentRoute);
+    // get the setters
+    const setCurrentRoute = useAppStore((state: any) => state.setCurrentRoute);
+    const setCurrentWaypoints = useAppStore((state: any) => state.setCurrentWaypoints);
 
     const theme = {
         variables: {
@@ -49,13 +49,15 @@ function MapPage() {
     }
 
     function handleSaveRoute() {
+        // Save waypoints to global store before navigating
+        setCurrentWaypoints(wayPoints);
         navigate("/create-post")
     }
 
     useEffect(() => {
         mapboxgl.accessToken = accessToken
         mapRef.current = new mapboxgl.Map({
-            container: mapContainerRef.current,
+            container: mapContainerRef.current!,
             center: [-73.9429, 40.7247],
             style: "mapbox://styles/jyrahman/cmh50ch2t005z01qpakpj9d4e",
             zoom: 12.34

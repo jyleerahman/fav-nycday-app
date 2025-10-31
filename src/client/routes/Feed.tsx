@@ -43,7 +43,7 @@ function Feed() {
             try {
                 const { data, error } = await supabase
                     .from("post")
-                    .select("id, title, content, route_geometry, weather_tags, mood_tags, created_at")
+                    .select("id, title, content, route_geometry, waypoints, weather_tags, mood_tags, created_at")
                     .order("created_at", { ascending: false })
 
                 setPosts(data || [])
@@ -69,7 +69,7 @@ function Feed() {
             <div className="light-green-tile-bg h-[3%]"></div>
             <div className="dark-green-tile-bg h-[8%] "></div>
             <div className="light-green-tile-bg h-[3%]"></div>
-            <div className="tile-bg h-[76%] flex items-center justify-center overflow-hidden relative">
+            <div className="tile-bg h-[76%] flex items-center justify-center overflow-hidden relative pt-8">
                 {currentPost ? (
                     <>
                         {/* PREVIOUS ARROW */}
@@ -91,7 +91,7 @@ function Feed() {
                                 </div>
                             )}
                             
-                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[400px] border-4 border-black overflow-y-auto" style={{maxHeight: '90%'}}>
+                            <div className="mta-flyer flex flex-col bg-[#faf8f3] w-[400px] h-[600px] border-4 border-black overflow-y-auto">
                                 {/* MTA HEADER */}
                                 <div className="bg-[#0039A6] text-white px-4 py-2.5 border-b-4 border-black">
                                     <div className="text-sm font-sans font-bold tracking-widest mb-0.5">
@@ -165,6 +165,35 @@ function Feed() {
                                     </div>
                                 )}
 
+                                {/* ROUTE STATIONS */}
+                                {currentPost.waypoints && currentPost.waypoints.length > 0 && (
+                                    <div className="px-4 py-3 bg-[#faf8f3] border-b-2 border-gray-400">
+                                        <div className="text-[0.7rem] font-sans font-black tracking-widest mb-2 text-gray-700">
+                                            ROUTE STATIONS
+                                        </div>
+                                        <div className="bg-white border-2 border-black p-3">
+                                            {currentPost.waypoints.map((waypoint: any, index: number) => (
+                                                <div key={waypoint.id} className="flex items-center gap-3 mb-2 last:mb-0">
+                                                    {/* Vertical line and dot */}
+                                                    <div className="flex flex-col items-center">
+                                                        {index > 0 && (
+                                                            <div className="w-1 h-3 bg-[#ff6319]"></div>
+                                                        )}
+                                                        <div className="w-3 h-3 rounded-full bg-[#ff6319] border-2 border-black flex-shrink-0"></div>
+                                                        {index < currentPost.waypoints.length - 1 && (
+                                                            <div className="w-1 h-3 bg-[#ff6319]"></div>
+                                                        )}
+                                                    </div>
+                                                    {/* Station name */}
+                                                    <div className="text-sm font-sans font-bold flex-1">
+                                                        {waypoint.name}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 {/* DETAILS */}
                                 <div className="px-4 py-3 bg-[#faf8f3]">
                                     <div className="text-[0.7rem] font-sans font-black tracking-widest mb-1.5 text-gray-700">
@@ -204,3 +233,5 @@ function Feed() {
 }
 
 export default Feed;
+
+

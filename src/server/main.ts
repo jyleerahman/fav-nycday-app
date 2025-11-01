@@ -34,6 +34,13 @@ app.post("/api/directions", async (req, res) => {
 
 })
 
-ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000..."),
+const port = process.env.PORT || 3000;
+
+// Configure ViteExpress for production
+if (process.env.NODE_ENV === 'production') {
+  ViteExpress.config({ mode: 'production' });
+}
+
+ViteExpress.listen(app, port, () =>
+  console.log(`Server is listening on port ${port}...`),
 );

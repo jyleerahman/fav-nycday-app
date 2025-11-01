@@ -35,12 +35,9 @@ app.post("/api/directions", async (req, res) => {
 })
 
 const port = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === 'production';
 
-// Configure ViteExpress for production
-if (process.env.NODE_ENV === 'production') {
-  ViteExpress.config({ mode: 'production' });
-}
-
-ViteExpress.listen(app, port, () =>
-  console.log(`Server is listening on port ${port}...`),
-);
+ViteExpress.listen(app, port, () => {
+  console.log(`Server is listening on port ${port}...`);
+  console.log(`Environment: ${isProduction ? 'production' : 'development'}`);
+});

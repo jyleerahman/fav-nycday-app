@@ -54,6 +54,10 @@ function MapPage() {
         navigate("/create-post")
     }
 
+    function handleDeleteWaypoint(id: string) {
+        setWayPoints(prev => prev.filter(wp => wp.id !== id));
+    }
+
     useEffect(() => {
         mapboxgl.accessToken = accessToken
         mapRef.current = new mapboxgl.Map({
@@ -208,6 +212,58 @@ function MapPage() {
                             marker={false}
                         />
                     </div>
+
+                    {/* Waypoints List - Transit Ticket Style */}
+                    {wayPoints.length > 0 && (
+                        <div className='absolute top-24 right-10 z-20 shadow-natural max-w-[280px] max-h-[60vh] overflow-y-auto'>
+                            <div className='perforated-x bg-white p-3'>
+                                <div className='border-2 border-[#0039A6] bg-white'>
+                                    {/* Header */}
+                                    <div className='bg-[#0039A6] px-3 py-2 border-b-2 border-[#0039A6]'>
+                                        <div className='font-["KGAllofMe"] text-white text-sm tracking-wide flex items-center justify-between'>
+                                            <span>ROUTE STOPS</span>
+                                            <span className='bg-[#ff6319] text-white px-2 py-0.5 text-xs rounded-sm'>{wayPoints.length}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Waypoints */}
+                                    <div className='bg-[#f7f4ed]'>
+                                        {wayPoints.map((wp, index) => (
+                                            <div key={wp.id} className='border-b border-[#0039A6] last:border-b-0'>
+                                                <div className='flex items-center gap-2 p-2.5 hover:bg-white transition-colors'>
+                                                    {/* Stop Number Circle */}
+                                                    <div className='flex-shrink-0 w-6 h-6 rounded-full bg-[#ff6319] flex items-center justify-center border-2 border-[#0039A6]'>
+                                                        <span className='text-white text-[0.65rem] font-bold font-["ArchivoNarrow"]'>{index + 1}</span>
+                                                    </div>
+                                                    
+                                                    {/* Location Name */}
+                                                    <span className='flex-1 text-[0.7rem] text-[#0039A6] font-["CutiveMono"] break-words leading-tight'>
+                                                        {wp.name}
+                                                    </span>
+                                                    
+                                                    {/* Delete Button */}
+                                                    <button
+                                                        onClick={() => handleDeleteWaypoint(wp.id)}
+                                                        className='flex-shrink-0 w-6 h-6 bg-[#D14124] hover:bg-[#a02f18] text-white rounded-sm transition-colors flex items-center justify-center text-xs font-bold border border-[#0039A6]'
+                                                        title='Remove stop'
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    
+                                    {/* Footer */}
+                                    <div className='bg-white px-3 py-1.5 border-t-2 border-[#0039A6]'>
+                                        <div className='text-[0.6rem] text-[#666] italic font-["ArchivoNarrow"] text-center'>
+                                            Click ✕ to remove stops
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     <div id='map-container' ref={mapContainerRef} />
                     {(wayPoints.length >= 2) &&
